@@ -18,16 +18,16 @@ def getImg(url):
     return imgUrl, imgUrl.split("/")[-1]
 
 
-for num in range(1, 11):
+for num in range(1, 53):
     try:
         target = f"https://wallpaperscraft.com/catalog/anime/3840x2400/page{num}"
         detailLst = getDetail(target)
         print("\033[91mDownloading from:\033[0m", target)
         for details in detailLst:
-            time.sleep(5)
+            time.sleep(1)
             address, name = getImg(details)
             print("Downloading:", name)
-            urlretrieve(address, "downloaded\\" + name)
+            urlretrieve(address, "H:\\downloaded\\" + name)
             print("Done.")
     except:
         pass
