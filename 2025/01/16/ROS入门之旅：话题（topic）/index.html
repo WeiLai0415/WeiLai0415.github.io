@@ -1,0 +1,336 @@
+<!DOCTYPE html><html lang="zh-CN" data-theme="light"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1.0,viewport-fit=cover"><title>ROS入门之旅：话题（topic） | Life of 崃</title><meta name="author" content="Wei Lai"><meta name="copyright" content="Wei Lai"><meta name="format-detection" content="telephone=no"><meta name="theme-color" content="#ffffff"><meta name="description" content="内容参考自Programming Robots with ROS by Morgan Quiley, Brian Gerkey, and William D. Smart (O’Reily). Copyright 2015 Morgan Quiley, Brian Gerkey, and William D. Smart, 978-1-4493-2389-9  将消息发布到话题上创建话题如下是声">
+<meta property="og:type" content="article">
+<meta property="og:title" content="ROS入门之旅：话题（topic）">
+<meta property="og:url" content="https://weilai0415.github.io/2025/01/16/ROS%E5%85%A5%E9%97%A8%E4%B9%8B%E6%97%85%EF%BC%9A%E8%AF%9D%E9%A2%98%EF%BC%88topic%EF%BC%89/index.html">
+<meta property="og:site_name" content="Life of 崃">
+<meta property="og:description" content="内容参考自Programming Robots with ROS by Morgan Quiley, Brian Gerkey, and William D. Smart (O’Reily). Copyright 2015 Morgan Quiley, Brian Gerkey, and William D. Smart, 978-1-4493-2389-9  将消息发布到话题上创建话题如下是声">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://vip.helloimg.com/i/2024/07/26/66a3a2cb7c059.png">
+<meta property="article:published_time" content="2025-01-16T10:58:27.000Z">
+<meta property="article:modified_time" content="2025-01-16T10:59:38.588Z">
+<meta property="article:author" content="Wei Lai">
+<meta property="article:tag" content="ROS">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://vip.helloimg.com/i/2024/07/26/66a3a2cb7c059.png"><link rel="shortcut icon" href="/img/favicon.png"><link rel="canonical" href="https://weilai0415.github.io/2025/01/16/ROS%E5%85%A5%E9%97%A8%E4%B9%8B%E6%97%85%EF%BC%9A%E8%AF%9D%E9%A2%98%EF%BC%88topic%EF%BC%89/index.html"><link rel="preconnect" href="//cdn.jsdelivr.net"/><link rel="preconnect" href="//busuanzi.ibruce.info"/><link rel="stylesheet" href="/css/index.css?v=4.14.0-b3"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.5.1/css/all.min.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/ui@5.0.35/dist/fancybox/fancybox.min.css" media="print" onload="this.media='all'"><script>(()=>{
+      const saveToLocal = {
+        set: (key, value, ttl) => {
+          if (ttl === 0) return
+          const now = Date.now()
+          const expiry = now + ttl * 86400000
+          const item = {
+            value,
+            expiry
+          }
+          localStorage.setItem(key, JSON.stringify(item))
+        },
+      
+        get: key => {
+          const itemStr = localStorage.getItem(key)
+      
+          if (!itemStr) {
+            return undefined
+          }
+          const item = JSON.parse(itemStr)
+          const now = Date.now()
+      
+          if (now > item.expiry) {
+            localStorage.removeItem(key)
+            return undefined
+          }
+          return item.value
+        }
+      }
+      
+      window.btf = {
+        saveToLocal: saveToLocal,
+        getScript: (url, attr = {}) => new Promise((resolve, reject) => {
+          const script = document.createElement('script')
+          script.src = url
+          script.async = true
+          script.onerror = reject
+          script.onload = script.onreadystatechange = function() {
+            const loadState = this.readyState
+            if (loadState && loadState !== 'loaded' && loadState !== 'complete') return
+            script.onload = script.onreadystatechange = null
+            resolve()
+          }
+
+          Object.keys(attr).forEach(key => {
+            script.setAttribute(key, attr[key])
+          })
+
+          document.head.appendChild(script)
+        }),
+
+        getCSS: (url, id = false) => new Promise((resolve, reject) => {
+          const link = document.createElement('link')
+          link.rel = 'stylesheet'
+          link.href = url
+          if (id) link.id = id
+          link.onerror = reject
+          link.onload = link.onreadystatechange = function() {
+            const loadState = this.readyState
+            if (loadState && loadState !== 'loaded' && loadState !== 'complete') return
+            link.onload = link.onreadystatechange = null
+            resolve()
+          }
+          document.head.appendChild(link)
+        }),
+
+        addGlobalFn: (key, fn, name = false, parent = window) => {
+          const pjaxEnable = false
+          if (!pjaxEnable && key.startsWith('pjax')) return
+
+          const globalFn = parent.globalFn || {}
+          const keyObj = globalFn[key] || {}
+    
+          if (name && keyObj[name]) return
+    
+          name = name || Object.keys(keyObj).length
+          keyObj[name] = fn
+          globalFn[key] = keyObj
+          parent.globalFn = globalFn
+        }
+      }
+    
+      const activateDarkMode = () => {
+        document.documentElement.setAttribute('data-theme', 'dark')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#0d0d0d')
+        }
+      }
+      const activateLightMode = () => {
+        document.documentElement.setAttribute('data-theme', 'light')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#ffffff')
+        }
+      }
+
+      btf.activateDarkMode = activateDarkMode
+      btf.activateLightMode = activateLightMode
+      
+      const t = saveToLocal.get('theme')
+    
+        if (t === 'dark') activateDarkMode()
+        else if (t === 'light') activateLightMode()
+      
+      const asideStatus = saveToLocal.get('aside-status')
+      if (asideStatus !== undefined) {
+        if (asideStatus === 'hide') {
+          document.documentElement.classList.add('hide-aside')
+        } else {
+          document.documentElement.classList.remove('hide-aside')
+        }
+      }
+    
+      const detectApple = () => {
+        if(/iPad|iPhone|iPod|Macintosh/.test(navigator.userAgent)){
+          document.documentElement.classList.add('apple')
+        }
+      }
+      detectApple()
+    })()</script><script>const GLOBAL_CONFIG = {
+  root: '/',
+  algolia: undefined,
+  localSearch: undefined,
+  translate: undefined,
+  noticeOutdate: undefined,
+  highlight: {"plugin":"highlight.js","highlightCopy":true,"highlightLang":true,"highlightHeightLimit":false,"highlightFullpage":true,"highlightMacStyle":false},
+  copy: {
+    success: '复制成功',
+    error: '复制错误',
+    noSupport: '浏览器不支持'
+  },
+  relativeDate: {
+    homepage: false,
+    post: false
+  },
+  runtime: '天',
+  dateSuffix: {
+    just: '刚刚',
+    min: '分钟前',
+    hour: '小时前',
+    day: '天前',
+    month: '个月前'
+  },
+  copyright: undefined,
+  lightbox: 'fancybox',
+  Snackbar: undefined,
+  infinitegrid: {
+    js: 'https://cdn.jsdelivr.net/npm/@egjs/infinitegrid@4.11.1/dist/infinitegrid.min.js',
+    buttonText: '加载更多'
+  },
+  isPhotoFigcaption: false,
+  islazyload: false,
+  isAnchor: false,
+  percent: {
+    toc: true,
+    rightside: false,
+  },
+  autoDarkmode: false
+}</script><script id="config-diff">var GLOBAL_CONFIG_SITE = {
+  title: 'ROS入门之旅：话题（topic）',
+  isPost: true,
+  isHome: false,
+  isHighlightShrink: false,
+  isToc: true,
+  postUpdate: '2025-01-16 18:59:38'
+}</script><meta name="generator" content="Hexo 7.2.0"></head><body><div id="sidebar"><div id="menu-mask"></div><div id="sidebar-menus"><div class="avatar-img is-center"><img src="https://vip.helloimg.com/i/2024/07/26/66a3a2cb7c059.png" onerror="onerror=null;src='/img/friend_404.gif'" alt="avatar"/></div><div class="sidebar-site-data site-data is-center"><a href="/archives/"><div class="headline">文章</div><div class="length-num">47</div></a><a href="/tags/"><div class="headline">标签</div><div class="length-num">8</div></a><a href="/categories/"><div class="headline">分类</div><div class="length-num">12</div></a></div><hr class="custom-hr"/><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> Home</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> Archives</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> Tags</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> Categories</span></a></div><div class="menus_item"><span class="site-page group"><i class="fa-fw fas fa-list"></i><span> List</span><i class="fas fa-chevron-down"></i></span><ul class="menus_item_child"><li><a class="site-page child" href="/music/"><i class="fa-fw fas fa-music"></i><span> Music</span></a></li><li><a class="site-page child" href="/movies/"><i class="fa-fw fas fa-video"></i><span> Movie</span></a></li></ul></div><div class="menus_item"><a class="site-page" href="/link/"><i class="fa-fw fas fa-link"></i><span> Link</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fas fa-heart"></i><span> About</span></a></div></div></div></div><div class="post" id="body-wrap"><header class="post-bg" id="page-header"><nav id="nav"><span id="blog-info"><a href="/" title="Life of 崃"><span class="site-name">Life of 崃</span></a></span><div id="menus"><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> Home</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> Archives</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> Tags</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> Categories</span></a></div><div class="menus_item"><span class="site-page group"><i class="fa-fw fas fa-list"></i><span> List</span><i class="fas fa-chevron-down"></i></span><ul class="menus_item_child"><li><a class="site-page child" href="/music/"><i class="fa-fw fas fa-music"></i><span> Music</span></a></li><li><a class="site-page child" href="/movies/"><i class="fa-fw fas fa-video"></i><span> Movie</span></a></li></ul></div><div class="menus_item"><a class="site-page" href="/link/"><i class="fa-fw fas fa-link"></i><span> Link</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fas fa-heart"></i><span> About</span></a></div></div><div id="toggle-menu"><span class="site-page"><i class="fas fa-bars fa-fw"></i></span></div></div></nav><div id="post-info"><h1 class="post-title">ROS入门之旅：话题（topic）</h1><div id="post-meta"><div class="meta-firstline"><span class="post-meta-date"><i class="far fa-calendar-alt fa-fw post-meta-icon"></i><span class="post-meta-label">发表于</span><time class="post-meta-date-created" datetime="2025-01-16T10:58:27.000Z" title="发表于 2025-01-16 18:58:27">2025-01-16</time><span class="post-meta-separator">|</span><i class="fas fa-history fa-fw post-meta-icon"></i><span class="post-meta-label">更新于</span><time class="post-meta-date-updated" datetime="2025-01-16T10:59:38.588Z" title="更新于 2025-01-16 18:59:38">2025-01-16</time></span><span class="post-meta-categories"><span class="post-meta-separator">|</span><i class="fas fa-inbox fa-fw post-meta-icon"></i><a class="post-meta-categories" href="/categories/ROS%E5%85%A5%E9%97%A8%E4%B9%8B%E6%97%85/">ROS入门之旅</a></span></div><div class="meta-secondline"><span class="post-meta-separator">|</span><span class="post-meta-pv-cv" id="" data-flag-title="ROS入门之旅：话题（topic）"><i class="far fa-eye fa-fw post-meta-icon"></i><span class="post-meta-label">阅读量:</span><span id="busuanzi_value_page_pv"><i class="fa-solid fa-spinner fa-spin"></i></span></span></div></div></div></header><main class="layout" id="content-inner"><div id="post"><article class="post-content" id="article-container"><blockquote>
+<p>内容参考自<em>Programming Robots with ROS</em> by Morgan Quiley, Brian Gerkey, and William D. Smart (O’Reily). Copyright 2015 Morgan Quiley, Brian Gerkey, and William D. Smart, 978-1-4493-2389-9</p>
+</blockquote>
+<h1 id="将消息发布到话题上"><a href="#将消息发布到话题上" class="headerlink" title="将消息发布到话题上"></a>将消息发布到话题上</h1><h2 id="创建话题"><a href="#创建话题" class="headerlink" title="创建话题"></a>创建话题</h2><p>如下是声明一个话题并在其上发布消息的基本代码。这个节点以2Hz的速率发送连续的整数到<code>counter</code>节点上。</p>
+<p><em>topic_publisher.py</em>：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#!/usr/bin/env python</span></span><br><span class="line"><span class="keyword">import</span> rospy</span><br><span class="line"><span class="keyword">from</span> std_msgs.msg <span class="keyword">import</span> Int32</span><br><span class="line"></span><br><span class="line">rospy.init_node(<span class="string">&#x27;topic_publisher&#x27;</span>)</span><br><span class="line">pub = rospy.Publisher(<span class="string">&#x27;counter&#x27;</span>, Int32)</span><br><span class="line">rate = rospy.Rate(<span class="number">2</span>)</span><br><span class="line"></span><br><span class="line">count = <span class="number">0</span></span><br><span class="line"><span class="keyword">while</span> <span class="keyword">not</span> rospy.is_shutdown():</span><br><span class="line">    pub.publish(count)</span><br><span class="line">    count += <span class="number">1</span></span><br><span class="line">    rate.sleep()</span><br></pre></td></tr></table></figure>
+
+<p>第一行<code>#!/user/bin/env python</code>是所谓的<em>shebang</em>。这句话告诉操作系统这是一个Python文件。由于我们要运行这个文件，所以需要使用<code>chmod</code>命令增加运行权限：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">chmod</span> u+x topic_publisher.py</span><br></pre></td></tr></table></figure>
+
+<p>初始化节点后，我们通过<code>Publisher</code>声明它：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">pub = rospy.Publisher(<span class="string">&#x27;counter&#x27;</span>, Int32)</span><br></pre></td></tr></table></figure>
+
+<p>至此，我们有一个声明counter话题并在上面发送整数的最小ROS节点。</p>
+<h2 id="检查一切是否工作正常"><a href="#检查一切是否工作正常" class="headerlink" title="检查一切是否工作正常"></a>检查一切是否工作正常</h2><p>我们可以使用<code>rostopic</code>命令来检查系统中当前所有可见的话题。打开一个终端，运行<code>roscore</code>。我们便可以在另一个终端中使用<code>rostopic list</code>查看系统中的可用话题。</p>
+<p>现在，我们要在另一个终端中运行上述节点。确保<code>basic</code>包被放置在一个工作空间中，并且已经导入了这个工作空间的配置（setup）文件。</p>
+<p>（可参考<a href="https://weilai0415.github.io/2025/01/15/ROS%E5%85%A5%E9%97%A8%E4%B9%8B%E6%97%85%EF%BC%9AROS%E5%88%9D%E6%AD%A5/">前一篇文章</a>创建工作空间和和ROS包）</p>
+<p>例如，我的<em>topic_publisher.py</em>位于*&#x2F;home&#x2F;lai&#x2F;my_ws1&#x2F;src&#x2F;basic&#x2F;*中。</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">rosrun basic topic_publisher.py</span><br></pre></td></tr></table></figure>
+
+<p>这是在另一个终端中查看话题：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">rostopic list</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">/counter</span><br><span class="line">/rosout</span><br><span class="line">/rosout_agg</span><br></pre></td></tr></table></figure>
+
+<p>更进一步的，我们可以使用<code>rostopic list</code>查看话题上发布的消息：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">rostopic <span class="built_in">echo</span> counter -n 5</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">---</span><br><span class="line">data: 810</span><br><span class="line">---</span><br><span class="line">data: 811</span><br><span class="line">---</span><br><span class="line">data: 812</span><br><span class="line">---</span><br><span class="line">data: 813</span><br><span class="line">---</span><br></pre></td></tr></table></figure>
+
+<p><code>-n 5</code>选项告诉<code>rostopic</code>只打印5条消息。如果不加这个选项，它将一直打印下去。</p>
+<p>我们也可以使用<code>rostopic</code>来检验它是否按照我们期望的速率发布消息：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">rostopic hz counter</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line">subscribed to [/counter]</span><br><span class="line">average rate: 2.001</span><br><span class="line">	min: 0.500s max: 0.500s std dev: 0.00000s window: 2</span><br><span class="line">average rate: 2.001</span><br><span class="line">	min: 0.499s max: 0.500s std dev: 0.00059s window: 4</span><br><span class="line">average rate: 2.000</span><br><span class="line">	min: 0.499s max: 0.501s std dev: 0.00059s window: 6</span><br><span class="line">average rate: 2.000</span><br><span class="line">	min: 0.499s max: 0.501s std dev: 0.00062s window: 8</span><br><span class="line">average rate: 2.000</span><br><span class="line">	min: 0.499s max: 0.501s std dev: 0.00067s window: 10</span><br><span class="line">average rate: 2.000</span><br><span class="line">	min: 0.499s max: 0.501s std dev: 0.00062s window: 12</span><br><span class="line">average rate: 2.000</span><br><span class="line">	min: 0.499s max: 0.501s std dev: 0.00059s window: 14</span><br><span class="line">average rate: 2.000</span><br><span class="line">	min: 0.499s max: 0.501s std dev: 0.00057s window: 16</span><br><span class="line">average rate: 2.000</span><br><span class="line">	min: 0.499s max: 0.501s std dev: 0.00056s window: 18</span><br><span class="line">average rate: 2.000</span><br><span class="line">	min: 0.499s max: 0.501s std dev: 0.00053s window: 20</span><br><span class="line">average rate: 2.000</span><br><span class="line">	min: 0.499s max: 0.501s std dev: 0.00054s window: 22</span><br></pre></td></tr></table></figure>
+
+<p>类似地，<code>rostopic bw</code>会给出这个话题使用的带宽。</p>
+<p>我们也可以使用<code>rostopic info</code>来查看一个已经被声明的话题：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">rostopic info counter</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">Type: std_msgs/Int32</span><br><span class="line"></span><br><span class="line">Publishers: </span><br><span class="line"> * /topic_publisher (http://ubuntu:41967/)</span><br><span class="line"></span><br><span class="line">Subscribers: None</span><br></pre></td></tr></table></figure>
+
+<p>这表明<code>counter</code>承载<code>std_msgs/Int32</code>类型的消息，并且由<code>topic_publisher</code>声明，而<br>且目前没有订阅者。由于多个节点可以发布相同的话题而且多个节点可以订阅同一个话题，所以这个命令可以帮助我们确认连接关系和我们想的一样。在这里, 发布者<code>topic_publisher</code>运行在<code>ubuntu</code>主机上，并且通过TCP端口41967通信。<code>rostopic type</code>的功能很相似, 但是只返回给定话题的消息类型。</p>
+<p>最后，我们还可以使用<code>rostopic find</code>命令来发现某种类型消息的所有话题：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">rostopic find std_msgs/Int32</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">/counter</span><br></pre></td></tr></table></figure>
+
+<h1 id="订阅一个话题"><a href="#订阅一个话题" class="headerlink" title="订阅一个话题"></a>订阅一个话题</h1><h2 id="创建订阅"><a href="#创建订阅" class="headerlink" title="创建订阅"></a>创建订阅</h2><p>如下是订阅counter话题并打印它接受到的消息的最小节点。</p>
+<p><em>topic_subscriber.py</em>：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#!/usr/bin/env python</span></span><br><span class="line"><span class="keyword">import</span> rospy</span><br><span class="line"><span class="keyword">from</span> std_msgs.msg <span class="keyword">import</span> Int32</span><br><span class="line"></span><br><span class="line"><span class="keyword">def</span> <span class="title function_">callback</span>(<span class="params">msg</span>):</span><br><span class="line">    <span class="built_in">print</span>(msg.data)</span><br><span class="line"></span><br><span class="line">rospy.init_node(<span class="string">&#x27;topic_subscriber&#x27;</span>)</span><br><span class="line">sub = rospy.Subscriber(<span class="string">&#x27;counter&#x27;</span>, Int32, callback)</span><br><span class="line">rospy.spin()</span><br></pre></td></tr></table></figure>
+
+<h2 id="检查一切是否工作正常-1"><a href="#检查一切是否工作正常-1" class="headerlink" title="检查一切是否工作正常"></a>检查一切是否工作正常</h2><p>首先确保发布者节点仍在运行并且仍在<code>counter</code>话题上发布信息。然后，在另一个终端中，启动订阅者节点：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">rosrun basic topic_subscriber.py</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">164</span><br><span class="line">165</span><br><span class="line">166</span><br><span class="line">167</span><br><span class="line">168</span><br><span class="line">169</span><br><span class="line">170</span><br><span class="line">171</span><br><span class="line">172</span><br><span class="line">173</span><br><span class="line">174</span><br><span class="line">175</span><br></pre></td></tr></table></figure>
+
+<p>Fantastic! 我们现在已经成功运行了第一个ROS。我们可以使用<code>rqt_graph</code>来可视化这个系统。</p>
+<p>我们也可以使用<code>rostopic pub</code>工具发布消息到一个话题上。例如：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">rostopic pub counter std_msgs/Int32 1000000</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">626</span><br><span class="line">627</span><br><span class="line">628</span><br><span class="line">629</span><br><span class="line">630</span><br><span class="line">631</span><br><span class="line">1000000</span><br><span class="line">632</span><br><span class="line">633</span><br><span class="line">634</span><br><span class="line">635</span><br><span class="line">636</span><br><span class="line">637</span><br><span class="line">638</span><br><span class="line">639</span><br></pre></td></tr></table></figure>
+
+<h1 id="锁存话题（latched-topics）"><a href="#锁存话题（latched-topics）" class="headerlink" title="锁存话题（latched topics）"></a>锁存话题（latched topics）</h1><p>ROS中的消息是短暂的。如果一条消息发布的时候我们还没有订阅这个话题，那么我们将错过它。如果发布者的发布频率很高的话，这没有什么影响，因为下一条消息马上就会到来<br>然而，有些情況下频繁发布消息是很坏的主意。</p>
+<p>举个例子, <code>map_server</code>节点在<code>map</code>话题上播地图（<code>nav_msgs/OccupancyGrid</code>类型的<br>数据）。这种数据表示环境地图，机器人可以使用这些东西来确定自己的位置。通常，这个地图永远不会发生改变，并且只在<code>map_server</code>加载完地图之后发送一次。然而，这意味着如果另一个节点需要这个地图,但是却在<code>map_server</code>发布完成之后启动，它将永远无法获取到地图数据。</p>
+<p>锁存节点提供一个简单地解决此类问题的方案。如果一个话题在其声被明时标记为锁存的，订阅者在完成订阅之后将会自动获取话题上发布的最后一个消息，例如：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">pub = rospy.Publisher(<span class="string">&#x27;map&#x27;</span>, nav_msgs/OccupancyGrid, latched=<span class="literal">True</span>)</span><br></pre></td></tr></table></figure>
+
+<h1 id="定义自己的消息类型"><a href="#定义自己的消息类型" class="headerlink" title="定义自己的消息类型"></a>定义自己的消息类型</h1><h2 id="定义一个新消息"><a href="#定义一个新消息" class="headerlink" title="定义一个新消息"></a>定义一个新消息</h2><p>例如，我们想发布随机的复数。</p>
+<p><em>Complex.msg</em>：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">float32 real</span><br><span class="line">float32 imaginary</span><br></pre></td></tr></table></figure>
+
+<p><em>Complex.msg</em>文件位于<code>basic</code>包的<em>msg</em>目录中。它定义了两个值，<code>real</code>和<code>imaginary</code>。</p>
+<p>一旦消息被定义了，我们就需要运行<code>catkin_make</code>命令来产生语言相关的代码。其中包<br>含了类型的定义，以及序列化和反序列化相关的代码。这将能够使我们在任何ROS支持<br>的语言中使用这一消息类型,使用一种语言写的节点可以订阅另一种语言写的节点发布<br>话题。而且这使得我们可以使用这些消息实现计算机和其他平台的无缝通信。</p>
+<p>为了让 ROS生成语言相关的消息代码,我们需要确保已经告知构建系统新消息的定义。可以通过向<em>package.xml</em>文件中添加以下代码来实现这一点：</p>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">build_depend</span>&gt;</span>message_generation<span class="tag">&lt;/<span class="name">build_depend</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">exec_depend</span>&gt;</span>message_runtime<span class="tag">&lt;/<span class="name">exec_depend</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+<p>接下来，我们需要更改一下<em>CMakeLists.txt</em>文件。首先，需要在<code>find_package()</code>调用的末尾添加<code>message_generation</code>，这样<code>catkin</code>就知道了去哪里寻找<code>message_generation</code>包</p>
+<figure class="highlight cmake"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">find_package</span>(catkin REQUIRED COMPONENTS</span><br><span class="line">    roscpp</span><br><span class="line">    rospy</span><br><span class="line">    std_msgs</span><br><span class="line">    message_generation <span class="comment"># Add message_generation here, after the other packages</span></span><br><span class="line">)</span><br></pre></td></tr></table></figure>
+
+<p>然后,告知<code>catkin</code>我们将在运行时使用消息，即在<code>catkin_package()</code>调用末尾添加<code>message_runtime</code>：</p>
+<figure class="highlight cmake"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">catkin_package(</span><br><span class="line">    CATKIN_DEPENDS message_runtime  <span class="comment"># This will not be the only thing here</span></span><br><span class="line">)</span><br></pre></td></tr></table></figure>
+
+<p>通过在<code>add_message_files()</code>调用的末尾添加消息定义文件来告知<code>catkin</code>我们想要编译它们：</p>
+<figure class="highlight cmake"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">add_message_files(</span><br><span class="line">    FILES</span><br><span class="line">    Complex.msg</span><br><span class="line">)</span><br></pre></td></tr></table></figure>
+
+<p>最后，仍然是在<em>CMakeLists.txt</em>文件中，需要确保去掉了<code>generate_messages()</code>调用的注释, 并已经包含了消息所依赖的所有依赖项：</p>
+<figure class="highlight cmake"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">generate messages(</span><br><span class="line">    DEPENDENCIES</span><br><span class="line">    std_msgs</span><br><span class="line">)</span><br></pre></td></tr></table></figure>
+
+<p>现在，我们已经告知<code>catkin</code>它需要知道的一切，我们可以开始编译它们了。到<code>catkin</code>工作空间的根目录，运行<code>catkin_make</code>。这将产生一个和消息定义文件同名的消息类型。方便起见，ROS的类型都是首字母大写且没有下划线的。</p>
+<h2 id="使用新消息"><a href="#使用新消息" class="headerlink" title="使用新消息"></a>使用新消息</h2><p>一旦我们的新消息被定义了，并且被编译了，我们就可以像使用ROS中的其他消息一样来使用它了。</p>
+<p><em>message_publisher.py</em>：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#!/usr/bin/env python</span></span><br><span class="line"><span class="keyword">import</span> rospy</span><br><span class="line"><span class="keyword">from</span> basic.msg <span class="keyword">import</span> Complex</span><br><span class="line"><span class="keyword">from</span> random <span class="keyword">import</span> random</span><br><span class="line"></span><br><span class="line">rospy.init_node(<span class="string">&#x27;message_publisher&#x27;</span>)</span><br><span class="line">pub = rospy.Publisher(<span class="string">&#x27;complex&#x27;</span>, Complex)</span><br><span class="line">rate = rospy.Rate(<span class="number">2</span>)</span><br><span class="line"></span><br><span class="line"><span class="keyword">while</span> <span class="keyword">not</span> rospy.is_shutdown():</span><br><span class="line">    msg = Complex()</span><br><span class="line">    msg.real = random()</span><br><span class="line">    msg.imaginary = random()</span><br><span class="line"></span><br><span class="line">    pub.publish(msg)</span><br><span class="line">    rate.sleep()</span><br></pre></td></tr></table></figure>
+
+<p>（若提示“[rospack] Error: package ‘basic’ not found”，可参考<a target="_blank" rel="noopener" href="https://blog.csdn.net/qq_33973712/article/details/108226729">https://blog.csdn.net/qq_33973712&#x2F;article&#x2F;details&#x2F;108226729</a>解决）</p>
+<p>要使用我们的新消息，可参考如下内容。</p>
+<p><em>message_subscriber.py</em>：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#!/usr/bin/env python</span></span><br><span class="line"><span class="keyword">import</span> rospy</span><br><span class="line"><span class="keyword">from</span> basic.msg <span class="keyword">import</span> Complex</span><br><span class="line"></span><br><span class="line"><span class="keyword">def</span> <span class="title function_">callback</span>(<span class="params">msg</span>):</span><br><span class="line">    <span class="built_in">print</span>(<span class="string">&#x27;Real:&#x27;</span>, msg.real)</span><br><span class="line">    <span class="built_in">print</span>(<span class="string">&#x27;Imaginary:&#x27;</span>, msg.imaginary)</span><br><span class="line"></span><br><span class="line">rospy.init_node(<span class="string">&#x27;message_subscriber&#x27;</span>)</span><br><span class="line">sub = rospy.Subscriber(<span class="string">&#x27;complex&#x27;</span>, Complex, callback)</span><br><span class="line">rospy.spin()</span><br></pre></td></tr></table></figure>
+
+<p>分别在不同的终端运行<code>rosrun basic message_publisher.py</code>和<code>rosrun basic message_subscriber.py</code>，我们可以收到如下信息：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><span class="line">(&#x27;Real:&#x27;, 0.9999882578849792)</span><br><span class="line">(&#x27;Imaginary:&#x27;, 0.4572080075740814)</span><br><span class="line">(&#x27;Real:&#x27;, 0.8403760194778442)</span><br><span class="line">(&#x27;Imaginary:&#x27;, 0.22716167569160461)</span><br><span class="line">(&#x27;Real:&#x27;, 0.6950759291648865)</span><br><span class="line">(&#x27;Imaginary:&#x27;, 0.9942832589149475)</span><br><span class="line">(&#x27;Real:&#x27;, 0.15603911876678467)</span><br><span class="line">(&#x27;Imaginary:&#x27;, 0.22643907368183136)</span><br><span class="line">(&#x27;Real:&#x27;, 0.07436700910329819)</span><br><span class="line">(&#x27;Imaginary:&#x27;, 0.29001638293266296)</span><br><span class="line">(&#x27;Real:&#x27;, 0.6325380206108093)</span><br><span class="line">(&#x27;Imaginary:&#x27;, 0.9387229084968567)</span><br><span class="line">(&#x27;Real:&#x27;, 0.12351877242326736)</span><br><span class="line">(&#x27;Imaginary:&#x27;, 0.9426838755607605)</span><br><span class="line">(&#x27;Real:&#x27;, 0.5822433233261108)</span><br><span class="line">(&#x27;Imaginary:&#x27;, 0.6146134734153748)</span><br><span class="line">(&#x27;Real:&#x27;, 0.46813079714775085)</span><br><span class="line">(&#x27;Imaginary:&#x27;, 0.9633353352546692)</span><br><span class="line">(&#x27;Real:&#x27;, 0.38089749217033386)</span><br><span class="line">(&#x27;Imaginary:&#x27;, 0.3922206163406372)</span><br><span class="line">(&#x27;Real:&#x27;, 0.10183482617139816)</span><br><span class="line">(&#x27;Imaginary:&#x27;, 0.42885103821754456)</span><br><span class="line">(&#x27;Real:&#x27;, 0.977981686592102)</span><br><span class="line">(&#x27;Imaginary:&#x27;, 0.3764207661151886)</span><br><span class="line">(&#x27;Real:&#x27;, 0.358938992023468)</span><br><span class="line">(&#x27;Imaginary:&#x27;, 0.08560513705015182)</span><br></pre></td></tr></table></figure>
+
+<h1 id="让发布者和订阅者同时工作"><a href="#让发布者和订阅者同时工作" class="headerlink" title="让发布者和订阅者同时工作"></a>让发布者和订阅者同时工作</h1><p>前面的例子显示了单个发布者&#x2F;单个订阅者的情况，但是一个节点也可以同时是一个发布者和订阅者，或者拥有多个订阅和发布。实际上，ROS节点最常做的事情就是传递消息，并在消息上进行运算。举个例子，一个节点可能会订阅一个包含摄像机图像的节点检测其中的人脸然后在另一个话题上发布这些人脸的位置。</p>
+<p><em>doubler.py</em>：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#!/usr/bin/env python</span></span><br><span class="line"><span class="keyword">import</span> rospy</span><br><span class="line"><span class="keyword">from</span> std_msgs.msg <span class="keyword">import</span> Int32</span><br><span class="line"></span><br><span class="line">rospy.init_node(<span class="string">&#x27;doubler&#x27;</span>)</span><br><span class="line"></span><br><span class="line"><span class="keyword">def</span> <span class="title function_">callback</span>(<span class="params">msg</span>):</span><br><span class="line">    doubled = Int32()</span><br><span class="line">    doubled.data = msg.data * <span class="number">2</span></span><br><span class="line"></span><br><span class="line">    pub.publish(doubled)</span><br><span class="line"></span><br><span class="line">sub = rospy.Subscriber(<span class="string">&#x27;number&#x27;</span>, Int32, callback)</span><br><span class="line">pub = rospy.Publisher(<span class="string">&#x27;doubled&#x27;</span>, Int32)</span><br><span class="line"></span><br><span class="line">rospy.spin()</span><br></pre></td></tr></table></figure>
+
+<p>订阅者和发布者就像前面一样进行配置，但是现在我们在回调函数中发布消息，而不是周期性地发布。这背后的原因就是，我们只想在接收到新的数据之后才发布，因为这个节点的目的就是传递数据 （在本例中，就是把接收到的数字加倍后发送出去） 。</p>
+</article><div class="post-copyright"><div class="post-copyright__author"><span class="post-copyright-meta"><i class="fas fa-circle-user fa-fw"></i>文章作者: </span><span class="post-copyright-info"><a href="https://WeiLai0415.github.io">Wei Lai</a></span></div><div class="post-copyright__type"><span class="post-copyright-meta"><i class="fas fa-square-arrow-up-right fa-fw"></i>文章链接: </span><span class="post-copyright-info"><a href="https://weilai0415.github.io/2025/01/16/ROS%E5%85%A5%E9%97%A8%E4%B9%8B%E6%97%85%EF%BC%9A%E8%AF%9D%E9%A2%98%EF%BC%88topic%EF%BC%89/">https://weilai0415.github.io/2025/01/16/ROS%E5%85%A5%E9%97%A8%E4%B9%8B%E6%97%85%EF%BC%9A%E8%AF%9D%E9%A2%98%EF%BC%88topic%EF%BC%89/</a></span></div><div class="post-copyright__notice"><span class="post-copyright-meta"><i class="fas fa-circle-exclamation fa-fw"></i>版权声明: </span><span class="post-copyright-info">本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" target="_blank">CC BY-NC-SA 4.0</a> 许可协议。转载请注明来自 <a href="https://WeiLai0415.github.io" target="_blank">Life of 崃</a>！</span></div></div><div class="tag_share"><div class="post-meta__tag-list"><a class="post-meta__tags" href="/tags/ROS/">ROS</a></div><div class="post_share"><div class="social-share" data-image="https://vip.helloimg.com/i/2024/07/26/66a3a2cb7c059.png" data-sites="facebook,twitter,wechat,weibo,qq"></div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/butterfly-extsrc@1.1.3/sharejs/dist/css/share.min.css" media="print" onload="this.media='all'"><script src="https://cdn.jsdelivr.net/npm/butterfly-extsrc@1.1.3/sharejs/dist/js/social-share.min.js" defer></script></div></div><nav class="pagination-post" id="pagination"><div class="next-post pull-full"><a href="/2025/01/15/ROS%E5%85%A5%E9%97%A8%E4%B9%8B%E6%97%85%EF%BC%9AROS%E5%88%9D%E6%AD%A5/" title="ROS入门之旅：ROS初步"><div class="cover" style="background: var(--default-bg-color)"></div><div class="pagination-info"><div class="label">下一篇</div><div class="next_info">ROS入门之旅：ROS初步</div></div></a></div></nav><div class="relatedPosts"><div class="headline"><i class="fas fa-thumbs-up fa-fw"></i><span>相关推荐</span></div><div class="relatedPosts-list"><div><a href="/2025/01/15/ROS%E5%85%A5%E9%97%A8%E4%B9%8B%E6%97%85%EF%BC%9AROS%E5%88%9D%E6%AD%A5/" title="ROS入门之旅：ROS初步"><div class="cover" style="background: var(--default-bg-color)"></div><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2025-01-15</div><div class="title">ROS入门之旅：ROS初步</div></div></a></div></div></div></div><div class="aside-content" id="aside-content"><div class="card-widget card-info"><div class="is-center"><div class="avatar-img"><img src="https://vip.helloimg.com/i/2024/07/26/66a3a2cb7c059.png" onerror="this.onerror=null;this.src='/img/friend_404.gif'" alt="avatar"/></div><div class="author-info__name">Wei Lai</div><div class="author-info__description"></div></div><div class="card-info-data site-data is-center"><a href="/archives/"><div class="headline">文章</div><div class="length-num">47</div></a><a href="/tags/"><div class="headline">标签</div><div class="length-num">8</div></a><a href="/categories/"><div class="headline">分类</div><div class="length-num">12</div></a></div><a id="card-info-btn" target="_blank" rel="noopener" href="https://github.com/xxxxxx"><i class="fab fa-github"></i><span>Follow Me</span></a></div><div class="card-widget card-announcement"><div class="item-headline"><i class="fas fa-bullhorn fa-shake"></i><span>公告</span></div><div class="announcement_content">This is my Blog</div></div><div class="sticky_layout"><div class="card-widget" id="card-toc"><div class="item-headline"><i class="fas fa-stream"></i><span>目录</span><span class="toc-percentage"></span></div><div class="toc-content"><ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#%E5%B0%86%E6%B6%88%E6%81%AF%E5%8F%91%E5%B8%83%E5%88%B0%E8%AF%9D%E9%A2%98%E4%B8%8A"><span class="toc-number">1.</span> <span class="toc-text">将消息发布到话题上</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%88%9B%E5%BB%BA%E8%AF%9D%E9%A2%98"><span class="toc-number">1.1.</span> <span class="toc-text">创建话题</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%A3%80%E6%9F%A5%E4%B8%80%E5%88%87%E6%98%AF%E5%90%A6%E5%B7%A5%E4%BD%9C%E6%AD%A3%E5%B8%B8"><span class="toc-number">1.2.</span> <span class="toc-text">检查一切是否工作正常</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E8%AE%A2%E9%98%85%E4%B8%80%E4%B8%AA%E8%AF%9D%E9%A2%98"><span class="toc-number">2.</span> <span class="toc-text">订阅一个话题</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%88%9B%E5%BB%BA%E8%AE%A2%E9%98%85"><span class="toc-number">2.1.</span> <span class="toc-text">创建订阅</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%A3%80%E6%9F%A5%E4%B8%80%E5%88%87%E6%98%AF%E5%90%A6%E5%B7%A5%E4%BD%9C%E6%AD%A3%E5%B8%B8-1"><span class="toc-number">2.2.</span> <span class="toc-text">检查一切是否工作正常</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E9%94%81%E5%AD%98%E8%AF%9D%E9%A2%98%EF%BC%88latched-topics%EF%BC%89"><span class="toc-number">3.</span> <span class="toc-text">锁存话题（latched topics）</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E5%AE%9A%E4%B9%89%E8%87%AA%E5%B7%B1%E7%9A%84%E6%B6%88%E6%81%AF%E7%B1%BB%E5%9E%8B"><span class="toc-number">4.</span> <span class="toc-text">定义自己的消息类型</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%AE%9A%E4%B9%89%E4%B8%80%E4%B8%AA%E6%96%B0%E6%B6%88%E6%81%AF"><span class="toc-number">4.1.</span> <span class="toc-text">定义一个新消息</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%BD%BF%E7%94%A8%E6%96%B0%E6%B6%88%E6%81%AF"><span class="toc-number">4.2.</span> <span class="toc-text">使用新消息</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E8%AE%A9%E5%8F%91%E5%B8%83%E8%80%85%E5%92%8C%E8%AE%A2%E9%98%85%E8%80%85%E5%90%8C%E6%97%B6%E5%B7%A5%E4%BD%9C"><span class="toc-number">5.</span> <span class="toc-text">让发布者和订阅者同时工作</span></a></li></ol></div></div><div class="card-widget card-recent-post"><div class="item-headline"><i class="fas fa-history"></i><span>最新文章</span></div><div class="aside-list"><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/2025/01/16/ROS%E5%85%A5%E9%97%A8%E4%B9%8B%E6%97%85%EF%BC%9A%E8%AF%9D%E9%A2%98%EF%BC%88topic%EF%BC%89/" title="ROS入门之旅：话题（topic）">ROS入门之旅：话题（topic）</a><time datetime="2025-01-16T10:58:27.000Z" title="发表于 2025-01-16 18:58:27">2025-01-16</time></div></div><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/2025/01/15/ROS%E5%85%A5%E9%97%A8%E4%B9%8B%E6%97%85%EF%BC%9AROS%E5%88%9D%E6%AD%A5/" title="ROS入门之旅：ROS初步">ROS入门之旅：ROS初步</a><time datetime="2025-01-15T11:09:35.000Z" title="发表于 2025-01-15 19:09:35">2025-01-15</time></div></div><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/2025/01/12/Linux%E5%91%BD%E4%BB%A4%E8%A1%8C%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0%EF%BC%9A%E5%91%BD%E4%BB%A4%E7%9A%84%E9%87%8D%E6%96%B0%E8%BF%90%E8%A1%8C/" title="Linux命令行学习笔记：命令的重新运行">Linux命令行学习笔记：命令的重新运行</a><time datetime="2025-01-12T10:11:22.000Z" title="发表于 2025-01-12 18:11:22">2025-01-12</time></div></div><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/2025/01/11/Linux%E5%91%BD%E4%BB%A4%E8%A1%8C%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0%EF%BC%9A%E5%A3%B3%E5%B1%82shell/" title="Linux命令行学习笔记：壳层shell">Linux命令行学习笔记：壳层shell</a><time datetime="2025-01-11T05:50:43.000Z" title="发表于 2025-01-11 13:50:43">2025-01-11</time></div></div><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/2025/01/10/Linux%E5%91%BD%E4%BB%A4%E8%A1%8C%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0%EF%BC%9A%E5%91%BD%E4%BB%A4%E7%9A%84%E7%BB%93%E5%90%88/" title="Linux命令行学习笔记：命令的结合">Linux命令行学习笔记：命令的结合</a><time datetime="2025-01-10T08:20:03.000Z" title="发表于 2025-01-10 16:20:03">2025-01-10</time></div></div></div></div></div></div></main><footer id="footer"><div id="footer-wrap"><div class="copyright">&copy;2024 - 2025 By Wei Lai</div><div class="framework-info"><span>框架 </span><a target="_blank" rel="noopener" href="https://hexo.io">Hexo</a><span class="footer-separator">|</span><span>主题 </span><a target="_blank" rel="noopener" href="https://github.com/jerryc127/hexo-theme-butterfly">Butterfly</a></div></div></footer></div><div id="rightside"><div id="rightside-config-hide"><button id="readmode" type="button" title="阅读模式"><i class="fas fa-book-open"></i></button><button id="darkmode" type="button" title="浅色和深色模式转换"><i class="fas fa-adjust"></i></button><button id="hide-aside-btn" type="button" title="单栏和双栏切换"><i class="fas fa-arrows-alt-h"></i></button></div><div id="rightside-config-show"><button id="rightside-config" type="button" title="设置"><i class="fas fa-cog fa-spin"></i></button><button class="close" id="mobile-toc-button" type="button" title="目录"><i class="fas fa-list-ul"></i></button><button id="go-up" type="button" title="回到顶部"><span class="scroll-percent"></span><i class="fas fa-arrow-up"></i></button></div></div><div><script src="/js/utils.js?v=4.14.0-b3"></script><script src="/js/main.js?v=4.14.0-b3"></script><script src="https://cdn.jsdelivr.net/npm/@fancyapps/ui@5.0.35/dist/fancybox/fancybox.umd.min.js"></script><div class="js-pjax"><script>(() => {
+  const runMermaid = (ele) => {
+    window.loadMermaid = true
+    const theme = document.documentElement.getAttribute('data-theme') === 'dark' ? 'dark' : 'default'
+
+    Array.from(ele).forEach((item, index) => {
+      const mermaidSrc = item.firstElementChild
+      const mermaidThemeConfig = '%%{init:{ \'theme\':\'' + theme + '\'}}%%\n'
+      const mermaidID = 'mermaid-' + index
+      const mermaidDefinition = mermaidThemeConfig + mermaidSrc.textContent
+
+      const renderFn = mermaid.render(mermaidID, mermaidDefinition)
+
+      const renderV10 = () => {
+        renderFn.then(({svg}) => {
+          mermaidSrc.insertAdjacentHTML('afterend', svg)
+        })
+      }
+
+      const renderV9 = svg => {
+        mermaidSrc.insertAdjacentHTML('afterend', svg)
+      }
+
+      typeof renderFn === 'string' ? renderV9(renderFn) : renderV10()
+    })
+  }
+
+  const codeToMermaid = () => {
+    const codeMermaidEle = document.querySelectorAll('pre > code.mermaid')
+    if (codeMermaidEle.length === 0) return
+    
+    codeMermaidEle.forEach(ele => {
+      const newEle = document.createElement('div')
+      newEle.className = 'mermaid-wrap'
+      newEle.innerHTML = `<pre class="mermaid-src" hidden>${ele.textContent}</pre>`
+      ele.parentNode.replaceWith(newEle)
+    })
+  }
+
+  const loadMermaid = () => {
+    if (false) codeToMermaid()
+    const $mermaid = document.querySelectorAll('#article-container .mermaid-wrap')
+    if ($mermaid.length === 0) return
+
+    const runMermaidFn = () => runMermaid($mermaid)
+    btf.addGlobalFn('themeChange', runMermaidFn, 'mermaid')
+    window.loadMermaid ? runMermaidFn() : btf.getScript('https://cdn.jsdelivr.net/npm/mermaid@10.9.0/dist/mermaid.min.js').then(runMermaidFn)
+  }
+  
+  btf.addGlobalFn('encrypt', loadMermaid, 'mermaid')
+  window.pjax ? loadMermaid() : document.addEventListener('DOMContentLoaded', loadMermaid)
+})()</script></div><script async data-pjax src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script></div></body></html>
