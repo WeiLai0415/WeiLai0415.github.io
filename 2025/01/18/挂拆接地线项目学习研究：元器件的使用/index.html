@@ -1,0 +1,290 @@
+<!DOCTYPE html><html lang="zh-CN" data-theme="light"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1.0,viewport-fit=cover"><title>挂拆接地线项目学习研究：元器件的使用 | Life of 崃</title><meta name="author" content="Wei Lai"><meta name="copyright" content="Wei Lai"><meta name="format-detection" content="telephone=no"><meta name="theme-color" content="#ffffff"><meta name="description" content="ESP32 DEVKIT V1 ESP32 DEVKIT V1是一款多功能开发板，可充分利用ESP32微控制器的强大功能。该芯片集成了WiFi 和蓝牙功能，是物联网 （IoT） 项目的理想选择。该板的 30 个 GPIO 引脚提供广泛的功能，从数字和模拟I&#x2F;O到触摸传感器、SPI、I2C和UART通信。    引脚 功能    VIN 3.3V正电压稳压器的输入。供电电压范围为4V至12">
+<meta property="og:type" content="article">
+<meta property="og:title" content="挂拆接地线项目学习研究：元器件的使用">
+<meta property="og:url" content="https://weilai0415.github.io/2025/01/18/%E6%8C%82%E6%8B%86%E6%8E%A5%E5%9C%B0%E7%BA%BF%E9%A1%B9%E7%9B%AE%E5%AD%A6%E4%B9%A0%E7%A0%94%E7%A9%B6%EF%BC%9A%E5%85%83%E5%99%A8%E4%BB%B6%E7%9A%84%E4%BD%BF%E7%94%A8/index.html">
+<meta property="og:site_name" content="Life of 崃">
+<meta property="og:description" content="ESP32 DEVKIT V1 ESP32 DEVKIT V1是一款多功能开发板，可充分利用ESP32微控制器的强大功能。该芯片集成了WiFi 和蓝牙功能，是物联网 （IoT） 项目的理想选择。该板的 30 个 GPIO 引脚提供广泛的功能，从数字和模拟I&#x2F;O到触摸传感器、SPI、I2C和UART通信。    引脚 功能    VIN 3.3V正电压稳压器的输入。供电电压范围为4V至12">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://vip.helloimg.com/i/2024/07/26/66a3a2cb7c059.png">
+<meta property="article:published_time" content="2025-01-18T12:35:36.000Z">
+<meta property="article:modified_time" content="2025-01-19T05:44:52.267Z">
+<meta property="article:author" content="Wei Lai">
+<meta property="article:tag" content="项目学习研究">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://vip.helloimg.com/i/2024/07/26/66a3a2cb7c059.png"><link rel="shortcut icon" href="/img/favicon.png"><link rel="canonical" href="https://weilai0415.github.io/2025/01/18/%E6%8C%82%E6%8B%86%E6%8E%A5%E5%9C%B0%E7%BA%BF%E9%A1%B9%E7%9B%AE%E5%AD%A6%E4%B9%A0%E7%A0%94%E7%A9%B6%EF%BC%9A%E5%85%83%E5%99%A8%E4%BB%B6%E7%9A%84%E4%BD%BF%E7%94%A8/index.html"><link rel="preconnect" href="//cdn.jsdelivr.net"/><link rel="preconnect" href="//busuanzi.ibruce.info"/><link rel="stylesheet" href="/css/index.css?v=4.14.0-b3"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.5.1/css/all.min.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/ui@5.0.35/dist/fancybox/fancybox.min.css" media="print" onload="this.media='all'"><script>(()=>{
+      const saveToLocal = {
+        set: (key, value, ttl) => {
+          if (ttl === 0) return
+          const now = Date.now()
+          const expiry = now + ttl * 86400000
+          const item = {
+            value,
+            expiry
+          }
+          localStorage.setItem(key, JSON.stringify(item))
+        },
+      
+        get: key => {
+          const itemStr = localStorage.getItem(key)
+      
+          if (!itemStr) {
+            return undefined
+          }
+          const item = JSON.parse(itemStr)
+          const now = Date.now()
+      
+          if (now > item.expiry) {
+            localStorage.removeItem(key)
+            return undefined
+          }
+          return item.value
+        }
+      }
+      
+      window.btf = {
+        saveToLocal: saveToLocal,
+        getScript: (url, attr = {}) => new Promise((resolve, reject) => {
+          const script = document.createElement('script')
+          script.src = url
+          script.async = true
+          script.onerror = reject
+          script.onload = script.onreadystatechange = function() {
+            const loadState = this.readyState
+            if (loadState && loadState !== 'loaded' && loadState !== 'complete') return
+            script.onload = script.onreadystatechange = null
+            resolve()
+          }
+
+          Object.keys(attr).forEach(key => {
+            script.setAttribute(key, attr[key])
+          })
+
+          document.head.appendChild(script)
+        }),
+
+        getCSS: (url, id = false) => new Promise((resolve, reject) => {
+          const link = document.createElement('link')
+          link.rel = 'stylesheet'
+          link.href = url
+          if (id) link.id = id
+          link.onerror = reject
+          link.onload = link.onreadystatechange = function() {
+            const loadState = this.readyState
+            if (loadState && loadState !== 'loaded' && loadState !== 'complete') return
+            link.onload = link.onreadystatechange = null
+            resolve()
+          }
+          document.head.appendChild(link)
+        }),
+
+        addGlobalFn: (key, fn, name = false, parent = window) => {
+          const pjaxEnable = false
+          if (!pjaxEnable && key.startsWith('pjax')) return
+
+          const globalFn = parent.globalFn || {}
+          const keyObj = globalFn[key] || {}
+    
+          if (name && keyObj[name]) return
+    
+          name = name || Object.keys(keyObj).length
+          keyObj[name] = fn
+          globalFn[key] = keyObj
+          parent.globalFn = globalFn
+        }
+      }
+    
+      const activateDarkMode = () => {
+        document.documentElement.setAttribute('data-theme', 'dark')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#0d0d0d')
+        }
+      }
+      const activateLightMode = () => {
+        document.documentElement.setAttribute('data-theme', 'light')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#ffffff')
+        }
+      }
+
+      btf.activateDarkMode = activateDarkMode
+      btf.activateLightMode = activateLightMode
+      
+      const t = saveToLocal.get('theme')
+    
+        if (t === 'dark') activateDarkMode()
+        else if (t === 'light') activateLightMode()
+      
+      const asideStatus = saveToLocal.get('aside-status')
+      if (asideStatus !== undefined) {
+        if (asideStatus === 'hide') {
+          document.documentElement.classList.add('hide-aside')
+        } else {
+          document.documentElement.classList.remove('hide-aside')
+        }
+      }
+    
+      const detectApple = () => {
+        if(/iPad|iPhone|iPod|Macintosh/.test(navigator.userAgent)){
+          document.documentElement.classList.add('apple')
+        }
+      }
+      detectApple()
+    })()</script><script>const GLOBAL_CONFIG = {
+  root: '/',
+  algolia: undefined,
+  localSearch: undefined,
+  translate: undefined,
+  noticeOutdate: undefined,
+  highlight: {"plugin":"highlight.js","highlightCopy":true,"highlightLang":true,"highlightHeightLimit":false,"highlightFullpage":true,"highlightMacStyle":false},
+  copy: {
+    success: '复制成功',
+    error: '复制错误',
+    noSupport: '浏览器不支持'
+  },
+  relativeDate: {
+    homepage: false,
+    post: false
+  },
+  runtime: '天',
+  dateSuffix: {
+    just: '刚刚',
+    min: '分钟前',
+    hour: '小时前',
+    day: '天前',
+    month: '个月前'
+  },
+  copyright: undefined,
+  lightbox: 'fancybox',
+  Snackbar: undefined,
+  infinitegrid: {
+    js: 'https://cdn.jsdelivr.net/npm/@egjs/infinitegrid@4.11.1/dist/infinitegrid.min.js',
+    buttonText: '加载更多'
+  },
+  isPhotoFigcaption: false,
+  islazyload: false,
+  isAnchor: false,
+  percent: {
+    toc: true,
+    rightside: false,
+  },
+  autoDarkmode: false
+}</script><script id="config-diff">var GLOBAL_CONFIG_SITE = {
+  title: '挂拆接地线项目学习研究：元器件的使用',
+  isPost: true,
+  isHome: false,
+  isHighlightShrink: false,
+  isToc: true,
+  postUpdate: '2025-01-19 13:44:52'
+}</script><meta name="generator" content="Hexo 7.2.0"></head><body><div id="sidebar"><div id="menu-mask"></div><div id="sidebar-menus"><div class="avatar-img is-center"><img src="https://vip.helloimg.com/i/2024/07/26/66a3a2cb7c059.png" onerror="onerror=null;src='/img/friend_404.gif'" alt="avatar"/></div><div class="sidebar-site-data site-data is-center"><a href="/archives/"><div class="headline">文章</div><div class="length-num">50</div></a><a href="/tags/"><div class="headline">标签</div><div class="length-num">9</div></a><a href="/categories/"><div class="headline">分类</div><div class="length-num">12</div></a></div><hr class="custom-hr"/><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> Home</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> Archives</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> Tags</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> Categories</span></a></div><div class="menus_item"><span class="site-page group"><i class="fa-fw fas fa-list"></i><span> List</span><i class="fas fa-chevron-down"></i></span><ul class="menus_item_child"><li><a class="site-page child" href="/music/"><i class="fa-fw fas fa-music"></i><span> Music</span></a></li><li><a class="site-page child" href="/movies/"><i class="fa-fw fas fa-video"></i><span> Movie</span></a></li></ul></div><div class="menus_item"><a class="site-page" href="/link/"><i class="fa-fw fas fa-link"></i><span> Link</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fas fa-heart"></i><span> About</span></a></div></div></div></div><div class="post" id="body-wrap"><header class="post-bg" id="page-header"><nav id="nav"><span id="blog-info"><a href="/" title="Life of 崃"><span class="site-name">Life of 崃</span></a></span><div id="menus"><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> Home</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> Archives</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> Tags</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> Categories</span></a></div><div class="menus_item"><span class="site-page group"><i class="fa-fw fas fa-list"></i><span> List</span><i class="fas fa-chevron-down"></i></span><ul class="menus_item_child"><li><a class="site-page child" href="/music/"><i class="fa-fw fas fa-music"></i><span> Music</span></a></li><li><a class="site-page child" href="/movies/"><i class="fa-fw fas fa-video"></i><span> Movie</span></a></li></ul></div><div class="menus_item"><a class="site-page" href="/link/"><i class="fa-fw fas fa-link"></i><span> Link</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fas fa-heart"></i><span> About</span></a></div></div><div id="toggle-menu"><span class="site-page"><i class="fas fa-bars fa-fw"></i></span></div></div></nav><div id="post-info"><h1 class="post-title">挂拆接地线项目学习研究：元器件的使用</h1><div id="post-meta"><div class="meta-firstline"><span class="post-meta-date"><i class="far fa-calendar-alt fa-fw post-meta-icon"></i><span class="post-meta-label">发表于</span><time class="post-meta-date-created" datetime="2025-01-18T12:35:36.000Z" title="发表于 2025-01-18 20:35:36">2025-01-18</time><span class="post-meta-separator">|</span><i class="fas fa-history fa-fw post-meta-icon"></i><span class="post-meta-label">更新于</span><time class="post-meta-date-updated" datetime="2025-01-19T05:44:52.267Z" title="更新于 2025-01-19 13:44:52">2025-01-19</time></span></div><div class="meta-secondline"><span class="post-meta-separator">|</span><span class="post-meta-pv-cv" id="" data-flag-title="挂拆接地线项目学习研究：元器件的使用"><i class="far fa-eye fa-fw post-meta-icon"></i><span class="post-meta-label">阅读量:</span><span id="busuanzi_value_page_pv"><i class="fa-solid fa-spinner fa-spin"></i></span></span></div></div></div></header><main class="layout" id="content-inner"><div id="post"><article class="post-content" id="article-container"><h1 id="ESP32-DEVKIT-V1"><a href="#ESP32-DEVKIT-V1" class="headerlink" title="ESP32 DEVKIT V1"></a>ESP32 DEVKIT V1</h1><p><img src="https://circuitstate.com/wp-content/uploads/2022/12/ESP32-DevKit-V1-Pinout-Diagram-r0.1-CIRCUITSTATE-Electronics-2.png" alt="ESP32-DevKit-V1-Pinout-Diagram-r0.1-CIRCUITSTATE-Electronics-2.png (4800×3360)"></p>
+<p>ESP32 DEVKIT V1是一款多功能开发板，可充分利用ESP32微控制器的强大功能。该芯片集成了WiFi 和蓝牙功能，是物联网 （IoT） 项目的理想选择。该板的 30 个 GPIO 引脚提供广泛的功能，从数字和模拟I&#x2F;O到触摸传感器、SPI、I2C和UART通信。</p>
+<table>
+<thead>
+<tr>
+<th>引脚</th>
+<th>功能</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>VIN</td>
+<td>3.3V正电压稳压器的输入。供电电压范围为4V至12V。</td>
+</tr>
+<tr>
+<td>3.3V</td>
+<td>来自电压稳压器的输出。如果有3.3V电源，也可以将其连接到该引脚。但不要同时向VIN和3V3提供。</td>
+</tr>
+</tbody></table>
+<h1 id="ASL43L"><a href="#ASL43L" class="headerlink" title="ASL43L"></a>ASL43L</h1><p>4路0.06mA低功耗免编程接收模块。</p>
+<table>
+<thead>
+<tr>
+<th>引脚</th>
+<th>功能</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>ANT</td>
+<td>天线脚</td>
+</tr>
+<tr>
+<td>KEY</td>
+<td>接对码按键</td>
+</tr>
+<tr>
+<td>D0~D3</td>
+<td>4路开关量输出，D0(TX)在串口模式时为串口输出</td>
+</tr>
+</tbody></table>
+<h1 id="XT60PB-M-G-Y"><a href="#XT60PB-M-G-Y" class="headerlink" title="XT60PB-M.G.Y"></a>XT60PB-M.G.Y</h1><p>板立式注塑型2PIN接头，为纵向有空间PCB板提供集成化解决方案。拥有镀金层、镀镍层两种选择，另有线对线式设计等。</p>
+<p><img src="https://www.china-amass.com/public/upload/20240329/240329150234R2.webp" alt="240329150234R2.webp (1772×1181)"></p>
+<h1 id="TJA1050T-CM-118"><a href="#TJA1050T-CM-118" class="headerlink" title="TJA1050T&#x2F;CM,118"></a>TJA1050T&#x2F;CM,118</h1><p>CAN收发器。</p>
+<p><img src="https://alimg.szlcsc.com/upload/public/product/source/20221228/4190D6F7693230D4E36CB3E2DC60DA65.jpg" alt="4190D6F7693230D4E36CB3E2DC60DA65.jpg (900×900)"></p>
+<h1 id="KF128-5-08-2P"><a href="#KF128-5-08-2P" class="headerlink" title="KF128-5.08-2P"></a>KF128-5.08-2P</h1><p>螺钉式接线端子。</p>
+<p><img src="https://alimg.szlcsc.com/upload/public/product/source/20230107/F59AC01FE82A4430FCD70378EE5594A4.jpg" alt="F59AC01FE82A4430FCD70378EE5594A4.jpg (1300×1300)"></p>
+<h1 id="TPS1HB08AQPWPRQ1"><a href="#TPS1HB08AQPWPRQ1" class="headerlink" title="TPS1HB08AQPWPRQ1"></a>TPS1HB08AQPWPRQ1</h1><p>具有可调节电流限制的 40V、8mΩ、汽车类单通道智能高侧开关。功率电子开关。</p>
+<p><img src="https://www.ti.com.cn/content/dam/ticom/images/products/package/p/pwp0016m.png" alt="TPS1HB08AQPWPRQ1"></p>
+<h1 id="TPS2557DRBR"><a href="#TPS2557DRBR" class="headerlink" title="TPS2557DRBR"></a>TPS2557DRBR</h1><p>精密可调限流电源分配开关，功率电子开关。</p>
+<p><img src="https://alimg.szlcsc.com/upload/public/product/source/20230102/F26AF8B3909557FD75B023AB7F41909B.jpg" alt="F26AF8B3909557FD75B023AB7F41909B.jpg (900×900)"></p>
+<h1 id="433MHZ弹簧天线"><a href="#433MHZ弹簧天线" class="headerlink" title="433MHZ弹簧天线"></a>433MHZ弹簧天线</h1><p>SW433-TH32DN是为无线数传&#x2F;抄表通信系统设计的433MHz镀镍小弹簧天线。天线驻波比性能好，外形尺寸小巧，结构巧妙，安装方便，性能稳定，具有很好的防振动和抗老化能力。</p>
+<p><img src="https://www.nicerf.cn/uploads/20221217/SW433-TH32DN-4.jpg" alt="SW433-TH32DN-4.jpg (1000×1000)"></p>
+<h1 id="TPS70933DRVR"><a href="#TPS70933DRVR" class="headerlink" title="TPS70933DRVR"></a>TPS70933DRVR</h1><p>具有反向电流保护和使能功能的 150mA、30V、超低 IQ、低压降稳压器。</p>
+<p><img src="https://www.ti.com.cn/content/dam/ticom/images/products/package/d/drv0006a.png" alt="drv0006a.png (640×360)"></p>
+<h1 id="SN74HCT32PWR"><a href="#SN74HCT32PWR" class="headerlink" title="SN74HCT32PWR"></a>SN74HCT32PWR</h1><p>4通道2输入4.5V至5.5V或门，具有TTL兼容输入。</p>
+<p><img src="https://www.ti.com/content/dam/ticom/images/products/package/d/d0014a.png" alt="d0014a.png (640×360)"></p>
+<h1 id="KF128-5-08-3P"><a href="#KF128-5-08-3P" class="headerlink" title="KF128-5.08-3P"></a>KF128-5.08-3P</h1><p>5.08mm 1x3P 排数:1 每排P数:3 直插。螺钉式接线端子。</p>
+<p><img src="https://alimg.szlcsc.com/upload/public/product/source/20230107/9A81161A796C1FA8F3477835FCE1223E.jpg" alt="9A81161A796C1FA8F3477835FCE1223E.jpg (1300×1300)"></p>
+<h1 id="XH-2A"><a href="#XH-2A" class="headerlink" title="XH-2A"></a>XH-2A</h1><p>线对板针座。线对板连接器。</p>
+<p><img src="https://alimg.szlcsc.com/upload/public/product/source/20221228/0F4B2B523C707E4AD01C682B9FCB6799.jpg" alt="0F4B2B523C707E4AD01C682B9FCB6799.jpg (1380×1380)"></p>
+<h1 id="5-8-ZSPT"><a href="#5-8-ZSPT" class="headerlink" title="5.8 ZSPT"></a>5.8 ZSPT</h1><p>5.8*5.8平头，带锁&#x2F;自锁开关、泡泡机开关。按键开关。</p>
+<p><img src="https://alimg.szlcsc.com/upload/public/product/source/20230105/0FB3F5B5B48B5F565A73CA0DE66F259C.jpg" alt="0FB3F5B5B48B5F565A73CA0DE66F259C.jpg (1200×1200)"></p>
+</article><div class="post-copyright"><div class="post-copyright__author"><span class="post-copyright-meta"><i class="fas fa-circle-user fa-fw"></i>文章作者: </span><span class="post-copyright-info"><a href="https://WeiLai0415.github.io">Wei Lai</a></span></div><div class="post-copyright__type"><span class="post-copyright-meta"><i class="fas fa-square-arrow-up-right fa-fw"></i>文章链接: </span><span class="post-copyright-info"><a href="https://weilai0415.github.io/2025/01/18/%E6%8C%82%E6%8B%86%E6%8E%A5%E5%9C%B0%E7%BA%BF%E9%A1%B9%E7%9B%AE%E5%AD%A6%E4%B9%A0%E7%A0%94%E7%A9%B6%EF%BC%9A%E5%85%83%E5%99%A8%E4%BB%B6%E7%9A%84%E4%BD%BF%E7%94%A8/">https://weilai0415.github.io/2025/01/18/%E6%8C%82%E6%8B%86%E6%8E%A5%E5%9C%B0%E7%BA%BF%E9%A1%B9%E7%9B%AE%E5%AD%A6%E4%B9%A0%E7%A0%94%E7%A9%B6%EF%BC%9A%E5%85%83%E5%99%A8%E4%BB%B6%E7%9A%84%E4%BD%BF%E7%94%A8/</a></span></div><div class="post-copyright__notice"><span class="post-copyright-meta"><i class="fas fa-circle-exclamation fa-fw"></i>版权声明: </span><span class="post-copyright-info">本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" target="_blank">CC BY-NC-SA 4.0</a> 许可协议。转载请注明来自 <a href="https://WeiLai0415.github.io" target="_blank">Life of 崃</a>！</span></div></div><div class="tag_share"><div class="post-meta__tag-list"><a class="post-meta__tags" href="/tags/%E9%A1%B9%E7%9B%AE%E5%AD%A6%E4%B9%A0%E7%A0%94%E7%A9%B6/">项目学习研究</a></div><div class="post_share"><div class="social-share" data-image="https://vip.helloimg.com/i/2024/07/26/66a3a2cb7c059.png" data-sites="facebook,twitter,wechat,weibo,qq"></div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/butterfly-extsrc@1.1.3/sharejs/dist/css/share.min.css" media="print" onload="this.media='all'"><script src="https://cdn.jsdelivr.net/npm/butterfly-extsrc@1.1.3/sharejs/dist/js/social-share.min.js" defer></script></div></div><nav class="pagination-post" id="pagination"><div class="next-post pull-full"><a href="/2025/01/17/ROS%E5%85%A5%E9%97%A8%E4%B9%8B%E6%97%85%EF%BC%9A%E5%8A%A8%E4%BD%9C%EF%BC%88action%EF%BC%89/" title="ROS入门之旅：动作（action）"><div class="cover" style="background: var(--default-bg-color)"></div><div class="pagination-info"><div class="label">下一篇</div><div class="next_info">ROS入门之旅：动作（action）</div></div></a></div></nav></div><div class="aside-content" id="aside-content"><div class="card-widget card-info"><div class="is-center"><div class="avatar-img"><img src="https://vip.helloimg.com/i/2024/07/26/66a3a2cb7c059.png" onerror="this.onerror=null;this.src='/img/friend_404.gif'" alt="avatar"/></div><div class="author-info__name">Wei Lai</div><div class="author-info__description"></div></div><div class="card-info-data site-data is-center"><a href="/archives/"><div class="headline">文章</div><div class="length-num">50</div></a><a href="/tags/"><div class="headline">标签</div><div class="length-num">9</div></a><a href="/categories/"><div class="headline">分类</div><div class="length-num">12</div></a></div><a id="card-info-btn" target="_blank" rel="noopener" href="https://github.com/xxxxxx"><i class="fab fa-github"></i><span>Follow Me</span></a></div><div class="card-widget card-announcement"><div class="item-headline"><i class="fas fa-bullhorn fa-shake"></i><span>公告</span></div><div class="announcement_content">This is my Blog</div></div><div class="sticky_layout"><div class="card-widget" id="card-toc"><div class="item-headline"><i class="fas fa-stream"></i><span>目录</span><span class="toc-percentage"></span></div><div class="toc-content"><ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#ESP32-DEVKIT-V1"><span class="toc-number">1.</span> <span class="toc-text">ESP32 DEVKIT V1</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#ASL43L"><span class="toc-number">2.</span> <span class="toc-text">ASL43L</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#XT60PB-M-G-Y"><span class="toc-number">3.</span> <span class="toc-text">XT60PB-M.G.Y</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#TJA1050T-CM-118"><span class="toc-number">4.</span> <span class="toc-text">TJA1050T&#x2F;CM,118</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#KF128-5-08-2P"><span class="toc-number">5.</span> <span class="toc-text">KF128-5.08-2P</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#TPS1HB08AQPWPRQ1"><span class="toc-number">6.</span> <span class="toc-text">TPS1HB08AQPWPRQ1</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#TPS2557DRBR"><span class="toc-number">7.</span> <span class="toc-text">TPS2557DRBR</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#433MHZ%E5%BC%B9%E7%B0%A7%E5%A4%A9%E7%BA%BF"><span class="toc-number">8.</span> <span class="toc-text">433MHZ弹簧天线</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#TPS70933DRVR"><span class="toc-number">9.</span> <span class="toc-text">TPS70933DRVR</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#SN74HCT32PWR"><span class="toc-number">10.</span> <span class="toc-text">SN74HCT32PWR</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#KF128-5-08-3P"><span class="toc-number">11.</span> <span class="toc-text">KF128-5.08-3P</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#XH-2A"><span class="toc-number">12.</span> <span class="toc-text">XH-2A</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#5-8-ZSPT"><span class="toc-number">13.</span> <span class="toc-text">5.8 ZSPT</span></a></li></ol></div></div><div class="card-widget card-recent-post"><div class="item-headline"><i class="fas fa-history"></i><span>最新文章</span></div><div class="aside-list"><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/2025/01/18/%E6%8C%82%E6%8B%86%E6%8E%A5%E5%9C%B0%E7%BA%BF%E9%A1%B9%E7%9B%AE%E5%AD%A6%E4%B9%A0%E7%A0%94%E7%A9%B6%EF%BC%9A%E5%85%83%E5%99%A8%E4%BB%B6%E7%9A%84%E4%BD%BF%E7%94%A8/" title="挂拆接地线项目学习研究：元器件的使用">挂拆接地线项目学习研究：元器件的使用</a><time datetime="2025-01-18T12:35:36.000Z" title="发表于 2025-01-18 20:35:36">2025-01-18</time></div></div><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/2025/01/17/ROS%E5%85%A5%E9%97%A8%E4%B9%8B%E6%97%85%EF%BC%9A%E5%8A%A8%E4%BD%9C%EF%BC%88action%EF%BC%89/" title="ROS入门之旅：动作（action）">ROS入门之旅：动作（action）</a><time datetime="2025-01-17T04:06:34.000Z" title="发表于 2025-01-17 12:06:34">2025-01-17</time></div></div><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/2025/01/16/ROS%E5%85%A5%E9%97%A8%E4%B9%8B%E6%97%85%EF%BC%9A%E6%9C%8D%E5%8A%A1%EF%BC%88service%EF%BC%89/" title="ROS入门之旅：服务（service）">ROS入门之旅：服务（service）</a><time datetime="2025-01-16T12:45:29.000Z" title="发表于 2025-01-16 20:45:29">2025-01-16</time></div></div><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/2025/01/16/ROS%E5%85%A5%E9%97%A8%E4%B9%8B%E6%97%85%EF%BC%9A%E8%AF%9D%E9%A2%98%EF%BC%88topic%EF%BC%89/" title="ROS入门之旅：话题（topic）">ROS入门之旅：话题（topic）</a><time datetime="2025-01-16T10:58:27.000Z" title="发表于 2025-01-16 18:58:27">2025-01-16</time></div></div><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/2025/01/15/ROS%E5%85%A5%E9%97%A8%E4%B9%8B%E6%97%85%EF%BC%9AROS%E5%88%9D%E6%AD%A5/" title="ROS入门之旅：ROS初步">ROS入门之旅：ROS初步</a><time datetime="2025-01-15T11:09:35.000Z" title="发表于 2025-01-15 19:09:35">2025-01-15</time></div></div></div></div></div></div></main><footer id="footer"><div id="footer-wrap"><div class="copyright">&copy;2024 - 2025 By Wei Lai</div><div class="framework-info"><span>框架 </span><a target="_blank" rel="noopener" href="https://hexo.io">Hexo</a><span class="footer-separator">|</span><span>主题 </span><a target="_blank" rel="noopener" href="https://github.com/jerryc127/hexo-theme-butterfly">Butterfly</a></div></div></footer></div><div id="rightside"><div id="rightside-config-hide"><button id="readmode" type="button" title="阅读模式"><i class="fas fa-book-open"></i></button><button id="darkmode" type="button" title="浅色和深色模式转换"><i class="fas fa-adjust"></i></button><button id="hide-aside-btn" type="button" title="单栏和双栏切换"><i class="fas fa-arrows-alt-h"></i></button></div><div id="rightside-config-show"><button id="rightside-config" type="button" title="设置"><i class="fas fa-cog fa-spin"></i></button><button class="close" id="mobile-toc-button" type="button" title="目录"><i class="fas fa-list-ul"></i></button><button id="go-up" type="button" title="回到顶部"><span class="scroll-percent"></span><i class="fas fa-arrow-up"></i></button></div></div><div><script src="/js/utils.js?v=4.14.0-b3"></script><script src="/js/main.js?v=4.14.0-b3"></script><script src="https://cdn.jsdelivr.net/npm/@fancyapps/ui@5.0.35/dist/fancybox/fancybox.umd.min.js"></script><div class="js-pjax"><script>(() => {
+  const runMermaid = (ele) => {
+    window.loadMermaid = true
+    const theme = document.documentElement.getAttribute('data-theme') === 'dark' ? 'dark' : 'default'
+
+    Array.from(ele).forEach((item, index) => {
+      const mermaidSrc = item.firstElementChild
+      const mermaidThemeConfig = '%%{init:{ \'theme\':\'' + theme + '\'}}%%\n'
+      const mermaidID = 'mermaid-' + index
+      const mermaidDefinition = mermaidThemeConfig + mermaidSrc.textContent
+
+      const renderFn = mermaid.render(mermaidID, mermaidDefinition)
+
+      const renderV10 = () => {
+        renderFn.then(({svg}) => {
+          mermaidSrc.insertAdjacentHTML('afterend', svg)
+        })
+      }
+
+      const renderV9 = svg => {
+        mermaidSrc.insertAdjacentHTML('afterend', svg)
+      }
+
+      typeof renderFn === 'string' ? renderV9(renderFn) : renderV10()
+    })
+  }
+
+  const codeToMermaid = () => {
+    const codeMermaidEle = document.querySelectorAll('pre > code.mermaid')
+    if (codeMermaidEle.length === 0) return
+    
+    codeMermaidEle.forEach(ele => {
+      const newEle = document.createElement('div')
+      newEle.className = 'mermaid-wrap'
+      newEle.innerHTML = `<pre class="mermaid-src" hidden>${ele.textContent}</pre>`
+      ele.parentNode.replaceWith(newEle)
+    })
+  }
+
+  const loadMermaid = () => {
+    if (false) codeToMermaid()
+    const $mermaid = document.querySelectorAll('#article-container .mermaid-wrap')
+    if ($mermaid.length === 0) return
+
+    const runMermaidFn = () => runMermaid($mermaid)
+    btf.addGlobalFn('themeChange', runMermaidFn, 'mermaid')
+    window.loadMermaid ? runMermaidFn() : btf.getScript('https://cdn.jsdelivr.net/npm/mermaid@10.9.0/dist/mermaid.min.js').then(runMermaidFn)
+  }
+  
+  btf.addGlobalFn('encrypt', loadMermaid, 'mermaid')
+  window.pjax ? loadMermaid() : document.addEventListener('DOMContentLoaded', loadMermaid)
+})()</script></div><script async data-pjax src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script></div></body></html>
