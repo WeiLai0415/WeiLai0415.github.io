@@ -169,85 +169,111 @@
   isHome: true,
   isHighlightShrink: false,
   isToc: false,
-  postUpdate: '2025-01-20 12:00:28'
+  postUpdate: '2025-01-21 16:28:56'
 }</script><meta name="generator" content="Hexo 7.2.0"></head><body><div id="sidebar"><div id="menu-mask"></div><div id="sidebar-menus"><div class="avatar-img is-center"><img src="https://vip.helloimg.com/i/2024/07/26/66a3a2cb7c059.png" onerror="onerror=null;src='/img/friend_404.gif'" alt="avatar"/></div><div class="sidebar-site-data site-data is-center"><a href="/archives/"><div class="headline">文章</div><div class="length-num">53</div></a><a href="/tags/"><div class="headline">标签</div><div class="length-num">10</div></a><a href="/categories/"><div class="headline">分类</div><div class="length-num">12</div></a></div><hr class="custom-hr"/><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> Home</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> Archives</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> Tags</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> Categories</span></a></div><div class="menus_item"><span class="site-page group"><i class="fa-fw fas fa-list"></i><span> List</span><i class="fas fa-chevron-down"></i></span><ul class="menus_item_child"><li><a class="site-page child" href="/music/"><i class="fa-fw fas fa-music"></i><span> Music</span></a></li><li><a class="site-page child" href="/movies/"><i class="fa-fw fas fa-video"></i><span> Movie</span></a></li></ul></div><div class="menus_item"><a class="site-page" href="/link/"><i class="fa-fw fas fa-link"></i><span> Link</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fas fa-heart"></i><span> About</span></a></div></div></div></div><div class="page" id="body-wrap"><header class="full_page" id="page-header"><nav id="nav"><span id="blog-info"><a href="/" title="Life of 崃"><span class="site-name">Life of 崃</span></a></span><div id="menus"><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> Home</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> Archives</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> Tags</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> Categories</span></a></div><div class="menus_item"><span class="site-page group"><i class="fa-fw fas fa-list"></i><span> List</span><i class="fas fa-chevron-down"></i></span><ul class="menus_item_child"><li><a class="site-page child" href="/music/"><i class="fa-fw fas fa-music"></i><span> Music</span></a></li><li><a class="site-page child" href="/movies/"><i class="fa-fw fas fa-video"></i><span> Movie</span></a></li></ul></div><div class="menus_item"><a class="site-page" href="/link/"><i class="fa-fw fas fa-link"></i><span> Link</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fas fa-heart"></i><span> About</span></a></div></div><div id="toggle-menu"><span class="site-page"><i class="fas fa-bars fa-fw"></i></span></div></div></nav><div id="site-info"><h1 id="site-title">Life of 崃</h1></div><div id="scroll-down"><i class="fas fa-angle-down scroll-down-effects"></i></div></header><main class="layout" id="content-inner"><div class="recent-posts" id="recent-posts"><div class="recent-post-item"><div class="recent-post-info no-cover"><a class="article-title" href="/2024/07/22/%E6%A0%91%E8%8E%93%E6%B4%BE%E5%AD%A6%E4%B9%A0%E4%B9%8B%E6%97%85%EF%BC%9ALCD%E6%98%BE%E7%A4%BA%E5%B1%8F/" title="树莓派学习之旅：LCD显示屏">树莓派学习之旅：LCD显示屏</a><div class="article-meta-wrap"><span class="post-meta-date"><i class="far fa-calendar-alt"></i><span class="article-meta-label">发表于</span><time datetime="2024-07-22T00:19:13.000Z" title="发表于 2024-07-22 08:19:13">2024-07-22</time></span><span class="article-meta"><span class="article-meta-separator">|</span><i class="fas fa-inbox"></i><a class="article-meta__categories" href="/categories/%E6%A0%91%E8%8E%93%E6%B4%BE%E5%AD%A6%E4%B9%A0%E4%B9%8B%E6%97%85/">树莓派学习之旅</a></span></div><div class="content">
-学习资料来自Get started with MicroPython  on Raspberry Pi Pico
+学习资料来自Get started with MicroPython on Raspberry Pi
+Pico
 
 连接树莓派和LCD
+
 注意，我的LCD上的接口名称与上图略有不同。
 
 GND：Ground或接地线，即上图的-
 VCC：Circuit或电路，即上图的RAW
 SDA：Scsi Disk Adapter或SCSI磁盘适配器，即上图的DA
-SCL：Structured Control Language结构化控制语言，即上图的CL
+SCL：Structured Control
+Language结构化控制语言，即上图的CL
 
 另外，由于我的显示器和Pico都是已经被焊接的，所以这里应该使用母对母（F2F）跳线。连接后如下图：
 
-hello world在屏幕上显示非常简单：
-1234567import machinesda = machine.Pin(0)scl = machine.Pin(1)i2c = machine.I2C(0,sda=sda, scl=scl, freq=400000)i2c.writeto(114, &#x27;\x7C&#x27;)i2c.writeto(114, &#x27;\x2D&#x27;)i2c.writeto(114, &quot; ...</div></div></div><div class="recent-post-item"><div class="recent-post-info no-cover"><a class="article-title" href="/2024/07/21/%E6%A0%91%E8%8E%93%E6%B4%BE%E5%AD%A6%E4%B9%A0%E4%B9%8B%E6%97%85%EF%BC%9A%E8%B5%84%E6%96%99%E8%AE%B0%E5%BD%95%E5%99%A8/" title="树莓派学习之旅：资料记录器">树莓派学习之旅：资料记录器</a><div class="article-meta-wrap"><span class="post-meta-date"><i class="far fa-calendar-alt"></i><span class="article-meta-label">发表于</span><time datetime="2024-07-21T14:43:37.000Z" title="发表于 2024-07-21 22:43:37">2024-07-21</time></span><span class="article-meta"><span class="article-meta-separator">|</span><i class="fas fa-inbox"></i><a class="article-meta__categories" href="/categories/%E6%A0%91%E8%8E%93%E6%B4%BE%E5%AD%A6%E4%B9%A0%E4%B9%8B%E6%97%85/">树莓派学习之旅</a></span></div><div class="content">
-学习资料来自Get started with MicroPython  on Raspberry Pi Pico
+hello world
+在屏幕上显示非常简单：
+1234567import machinesda = machine.Pin(0)scl = machine.Pin(1)i2c = machine.I2C(0,sda=sda, scl=scl, freq=400000)i2c.writeto(114, &#x27;\x7C&#x27;)i2c.writeto(114, &#x27;\x2D&#x27;)i2c. ...</div></div></div><div class="recent-post-item"><div class="recent-post-info no-cover"><a class="article-title" href="/2024/07/21/%E6%A0%91%E8%8E%93%E6%B4%BE%E5%AD%A6%E4%B9%A0%E4%B9%8B%E6%97%85%EF%BC%9A%E8%B5%84%E6%96%99%E8%AE%B0%E5%BD%95%E5%99%A8/" title="树莓派学习之旅：资料记录器">树莓派学习之旅：资料记录器</a><div class="article-meta-wrap"><span class="post-meta-date"><i class="far fa-calendar-alt"></i><span class="article-meta-label">发表于</span><time datetime="2024-07-21T14:43:37.000Z" title="发表于 2024-07-21 22:43:37">2024-07-21</time></span><span class="article-meta"><span class="article-meta-separator">|</span><i class="fas fa-inbox"></i><a class="article-meta__categories" href="/categories/%E6%A0%91%E8%8E%93%E6%B4%BE%E5%AD%A6%E4%B9%A0%E4%B9%8B%E6%97%85/">树莓派学习之旅</a></span></div><div class="content">
+学习资料来自Get started with MicroPython on Raspberry Pi
+Pico
 
 此前我们一直是将树莓派Pico连接到电脑上的。但树莓派具有自主的处理能力、内存等用于独立工作的一切。
-文件系统存储我们所写程序的文件系统与我们电脑上的硬盘（或固态硬盘）是等价的，因此，即便我们把它从数据线上拔下来也可以把文件存储到位。
+文件系统
+存储我们所写程序的文件系统与我们电脑上的硬盘（或固态硬盘）是等价的，因此，即便我们把它从数据线上拔下来也可以把文件存储到位。
 打开Thonny，在终端（shell）区输入
 1file = open(&quot;test.txt&quot;, &quot;w&quot;)
-
 这样，我们就打开了test.txt并写入——w即代表写入，输入这行代码后什么也不会显示，因为我们什么也没做呢。接着，写入：
 1file.write(&quot;File，你好！&quot;)
-
 按下回车后，我们可以看见16——也就是确认我们输入了16个字节到我们打开的文件（注意，一个汉字（或中文标点）占3个字节）。
 写入后，我们需要将他关闭——以确认数据确实被写入到文件系统中了。
 1file.close()
-
 这使，我们就可以打开了。当然，也可以输入
-1file = open(&quot;te ...</div></div></div><div class="recent-post-item"><div class="recent-post-info no-cover"><a class="article-title" href="/2024/07/21/%E6%A0%91%E8%8E%93%E6%B4%BE%E5%AD%A6%E4%B9%A0%E4%B9%8B%E6%97%85%EF%BC%9A%E6%B8%A9%E5%BA%A6%E8%AE%A1/" title="树莓派学习之旅：温度计">树莓派学习之旅：温度计</a><div class="article-meta-wrap"><span class="post-meta-date"><i class="far fa-calendar-alt"></i><span class="article-meta-label">发表于</span><time datetime="2024-07-21T12:51:49.000Z" title="发表于 2024-07-21 20:51:49">2024-07-21</time></span><span class="article-meta"><span class="article-meta-separator">|</span><i class="fas fa-inbox"></i><a class="article-meta__categories" href="/categories/%E6%A0%91%E8%8E%93%E6%B4%BE%E5%AD%A6%E4%B9%A0%E4%B9%8B%E6%97%85/">树莓派学习之旅</a></span></div><div class="content">
-学习资料来自Get started with MicroPython  on Raspberry Pi Pico
+1file = o ...</div></div></div><div class="recent-post-item"><div class="recent-post-info no-cover"><a class="article-title" href="/2024/07/21/%E6%A0%91%E8%8E%93%E6%B4%BE%E5%AD%A6%E4%B9%A0%E4%B9%8B%E6%97%85%EF%BC%9A%E6%B8%A9%E5%BA%A6%E8%AE%A1/" title="树莓派学习之旅：温度计">树莓派学习之旅：温度计</a><div class="article-meta-wrap"><span class="post-meta-date"><i class="far fa-calendar-alt"></i><span class="article-meta-label">发表于</span><time datetime="2024-07-21T12:51:49.000Z" title="发表于 2024-07-21 20:51:49">2024-07-21</time></span><span class="article-meta"><span class="article-meta-separator">|</span><i class="fas fa-inbox"></i><a class="article-meta__categories" href="/categories/%E6%A0%91%E8%8E%93%E6%B4%BE%E5%AD%A6%E4%B9%A0%E4%B9%8B%E6%97%85/">树莓派学习之旅</a></span></div><div class="content">
+学习资料来自Get started with MicroPython on Raspberry Pi
+Pico
 
-目前我们已经使用了许多数字信号输入元件。数字信号只有两个状态，比如开关、被动式红外传感器。我们的Pico也接受另一种信号：模拟信号，模拟信号可以是一系列的值。模拟信号被广泛应用于音量控制、湿度和温度传感器中——它们通过模拟到数字信号转换器（analogue-to-digital converter, ADC）。
+目前我们已经使用了许多数字信号输入元件。数字信号只有两个状态，比如开关、被动式红外传感器。我们的Pico也接受另一种信号：模拟信号，模拟信号可以是一系列的值。模拟信号被广泛应用于音量控制、湿度和温度传感器中——它们通过模拟到数字信号转换器（analogue-to-digital
+converter, ADC）。
 所需材料
+
 Pico
 任意颜色的LED
 330Ω的电阻
 10kΩ的电位计
 公对公跳线若干
 
-Analogue-to-digital converter树莓派Pico的RP2040微处理器与其他主流微处理器一样，都是由成千上万的晶体管构成的，这种元件不是开就是关。也就是说，如果没有ADC等元件，我们的Pico就不能真正理解模拟信号。
+Analogue-to-digital
+converter
+树莓派Pico的RP2040微处理器与其他主流微处理器一样，都是由成千上万的晶体管构成的，这种元件不是开就是关。也就是说，如果没有ADC等元件，我们的Pico就不能真正理解模拟信号。
 我们无法用肉眼观察到ADC，它被内置到RP2040中了。许多微处理器和RP2040一样，都内置了ADC，对于没有内置ADC的，我们可以使用外接ADC。
-ADC有两个核心功能：分辨率（以比特数（bits）计算）和频道（或者说可以一次性接受 ...</div></div></div><div class="recent-post-item"><div class="recent-post-info no-cover"><a class="article-title" href="/2024/07/15/%E5%88%9D%E8%AF%86seaborn/" title="初识seaborn">初识seaborn</a><div class="article-meta-wrap"><span class="post-meta-date"><i class="far fa-calendar-alt"></i><span class="article-meta-label">发表于</span><time datetime="2024-07-15T01:02:05.000Z" title="发表于 2024-07-15 09:02:05">2024-07-15</time></span><span class="article-meta"><span class="article-meta-separator">|</span><i class="fas fa-inbox"></i><a class="article-meta__categories" href="/categories/seaborn/">seaborn</a></span></div><div class="content">
-Seaborn is a library for making statistical graphics in Python. It builds on top of matplotlib and integrates closely with pandas data structures.
-——An introduction to seaborn — seaborn 0.13.2 documentation (pydata.org)
+ADC有两个核心功能：分辨率（以比特数（bit ...</div></div></div><div class="recent-post-item"><div class="recent-post-info no-cover"><a class="article-title" href="/2024/07/15/%E5%88%9D%E8%AF%86seaborn/" title="初识seaborn">初识seaborn</a><div class="article-meta-wrap"><span class="post-meta-date"><i class="far fa-calendar-alt"></i><span class="article-meta-label">发表于</span><time datetime="2024-07-15T01:02:05.000Z" title="发表于 2024-07-15 09:02:05">2024-07-15</time></span><span class="article-meta"><span class="article-meta-separator">|</span><i class="fas fa-inbox"></i><a class="article-meta__categories" href="/categories/seaborn/">seaborn</a></span></div><div class="content">
+Seaborn is a library for making statistical graphics in Python. It
+builds on top of matplotlib and
+integrates closely with pandas
+data structures.
+——An
+introduction to seaborn — seaborn 0.13.2 documentation
+(pydata.org)
 
 
 本文中的图片和供下载的文件都挂载在GitHub上，国内的朋友可能加载慢。
 
-一个简单的例子完整代码即效果一览12345678910111213141516# 导入seaborn和pandasimport seaborn as snsimport pandas as pd# 使用默认主题sns.set_theme()# 加载数据集tips = pd.read_csv(&#x27;tips.csv&#x27;)# 可视化sns.relplot(    data=tips,    x=&quot;total_bill&quot;, y=&quot;tip ...</div></div></div><div class="recent-post-item"><div class="recent-post-info no-cover"><a class="article-title" href="/2024/07/09/%E5%8D%95%E8%AF%8D%E8%A1%A82/" title="单词表2">单词表2</a><div class="article-meta-wrap"><span class="post-meta-date"><i class="far fa-calendar-alt"></i><span class="article-meta-label">发表于</span><time datetime="2024-07-09T02:40:30.000Z" title="发表于 2024-07-09 10:40:30">2024-07-09</time></span><span class="article-meta"><span class="article-meta-separator">|</span><i class="fas fa-inbox"></i><a class="article-meta__categories" href="/categories/%E5%8D%95%E8%AF%8D%E8%A1%A8/">单词表</a></span></div><div class="content">flounder&#x2F;ˈflaʊndər&#x2F; verb, noun
+一个简单的例子
+完整代码即效果一览
+12345678910111213141516# 导入seaborn和pandasimport seaborn as snsimport pandas as pd# 使用默认主题sns.set_theme()# 加载数据集tips = pd.read_csv(&#x27;tips.csv&#x27;)# 可视化sns.relplot(    data=tips,    x=&quot;total_bill&qu ...</div></div></div><div class="recent-post-item"><div class="recent-post-info no-cover"><a class="article-title" href="/2024/07/09/%E5%8D%95%E8%AF%8D%E8%A1%A82/" title="单词表2">单词表2</a><div class="article-meta-wrap"><span class="post-meta-date"><i class="far fa-calendar-alt"></i><span class="article-meta-label">发表于</span><time datetime="2024-07-09T02:40:30.000Z" title="发表于 2024-07-09 10:40:30">2024-07-09</time></span><span class="article-meta"><span class="article-meta-separator">|</span><i class="fas fa-inbox"></i><a class="article-meta__categories" href="/categories/%E5%8D%95%E8%AF%8D%E8%A1%A8/">单词表</a></span></div><div class="content">flounder
+/ˈflaʊndər/ verb, noun
 verb
-不知所措；挠头；支吾
-His abrupt change of subject left her floundering helplessly.他突然改变话题，使她不知所措。
-+ speech ‘Well, I, er…’ he floundered.
 
+不知所措；挠头；支吾
+
+His abrupt change of subject left her floundering
+helplessly.他突然改变话题，使她不知所措。
++ speech ‘Well, I, er…’ he
+floundered.
 
 困难重重；艰苦挣扎
-At that time the industry was floundering.那时这个行业举步维艰。
 
+At that time the industry was
+floundering.那时这个行业举步维艰。
 
 （在，泥等中）挣扎
-She was floundering around in the deep end of the swimming pool.
+
+She was floundering around in the deep end of the swimming
+pool.
 
 
-
-noun偏口鱼；比目鱼；鲽
-marginalize&#x2F;ˈmɑːrdʒɪnəlaɪz&#x2F; verb 使显得微不足道；使处于边缘；使无实权
+noun
+偏口鱼；比目鱼；鲽
+marginalize
+/ˈmɑːrdʒɪnəlaɪz/ verb 使显得微不足道；使处于边缘；使无实权
 
 the marginalization of the elderly老年人的边缘化
 
-conceal&#x2F;kənˈsiːl&#x2F; verb 隐藏；隐瞒；掩盖
+conceal
+/kənˈsiːl/ verb 隐藏；隐瞒；掩盖
 
-The paintings were ...</div></div></div><div class="recent-post-item"><div class="recent-post-info no-cover"><a class="article-title" href="/2024/07/09/%E6%A0%91%E8%8E%93%E6%B4%BE%E5%AD%A6%E4%B9%A0%E4%B9%8B%E6%97%85%EF%BC%9A%E5%B0%8F%E5%81%B7%E6%8A%A5%E8%AD%A6%E5%99%A8/" title="树莓派学习之旅：小偷报警器">树莓派学习之旅：小偷报警器</a><div class="article-meta-wrap"><span class="post-meta-date"><i class="far fa-calendar-alt"></i><span class="article-meta-label">发表于</span><time datetime="2024-07-09T01:06:46.000Z" title="发表于 2024-07-09 09:06:46">2024-07-09</time></span><span class="article-meta"><span class="article-meta-separator">|</span><i class="fas fa-inbox"></i><a class="article-meta__categories" href="/categories/%E6%A0%91%E8%8E%93%E6%B4%BE%E5%AD%A6%E4%B9%A0%E4%B9%8B%E6%97%85/">树莓派学习之旅</a></span></div><div class="content">
-学习资料来自Get started with MicroPython  on Raspberry Pi Pico
+The paintin ...</div></div></div><div class="recent-post-item"><div class="recent-post-info no-cover"><a class="article-title" href="/2024/07/09/%E6%A0%91%E8%8E%93%E6%B4%BE%E5%AD%A6%E4%B9%A0%E4%B9%8B%E6%97%85%EF%BC%9A%E5%B0%8F%E5%81%B7%E6%8A%A5%E8%AD%A6%E5%99%A8/" title="树莓派学习之旅：小偷报警器">树莓派学习之旅：小偷报警器</a><div class="article-meta-wrap"><span class="post-meta-date"><i class="far fa-calendar-alt"></i><span class="article-meta-label">发表于</span><time datetime="2024-07-09T01:06:46.000Z" title="发表于 2024-07-09 09:06:46">2024-07-09</time></span><span class="article-meta"><span class="article-meta-separator">|</span><i class="fas fa-inbox"></i><a class="article-meta__categories" href="/categories/%E6%A0%91%E8%8E%93%E6%B4%BE%E5%AD%A6%E4%B9%A0%E4%B9%8B%E6%97%85/">树莓派学习之旅</a></span></div><div class="content">
+学习资料来自Get started with MicroPython on Raspberry Pi
+Pico
 
 在现实生活中，微控制器的另一个应用是在警报系统中。
 所需材料
+
 树莓派Pico
 一块面包板
 任意颜色的LED
@@ -256,43 +282,65 @@ The paintings were ...</div></div></div><div class="recent-post-item"><div class
 一个（或多个）红外传感器
 公对公和公对母跳线若干
 
-打印警报信息HC-SR501 PIR在之前的项目，我们应用了一些简单的输入元件——按钮，这次我们使用特殊的输入元件——红外传感器（passive  infrared sensor）。
+打印警报信息
+HC-SR501 PIR
+在之前的项目，我们应用了一些简单的输入元件——按钮，这次我们使用特殊的输入元件——红外传感器（passive
+infrared sensor）。
 红外传感器是用来探测物体运动的装置，尤其是人类或其他活物。它就像一个摄像机，但它并不捕捉可见光，而是寻找活物因热发出的红外线。
 拿起HC-SR501传感器，我们最先注意到的是它有一块电路板，就像Pico一样，只不过它的小一些。除了电路板，它当然还有其他元件：一块驱动传感器黑色集成电路，一些电容器，一些小的表面贴装的电阻，一些小的电位器（我们可以用螺丝刀旋转来调整传感器的灵敏度以及被触发后能保持活跃多久）。
-我们还能看到三个公引脚（male pins），但显然，我们无法将引脚直接插入面包板，因为电 ...</div></div></div><div class="recent-post-item"><div class="recent-post-info no-cover"><a class="article-title" href="/2024/07/07/%E7%BD%91%E7%AB%99%E6%8E%A8%E8%8D%90/" title="网站推荐">网站推荐</a><div class="article-meta-wrap"><span class="post-meta-date"><i class="far fa-calendar-alt"></i><span class="article-meta-label">发表于</span><time datetime="2024-07-07T13:11:28.000Z" title="发表于 2024-07-07 21:11:28">2024-07-07</time></span></div><div class="content">最近冲浪时，发现了许多宝藏的网站。这些有的有趣，有的具有实用价值。让我们一起来看看吧(⁎⁍̴̛ᴗ⁍̴̛⁎)
+我们还能看到三个公引脚（male
+pins） ...</div></div></div><div class="recent-post-item"><div class="recent-post-info no-cover"><a class="article-title" href="/2024/07/07/%E7%BD%91%E7%AB%99%E6%8E%A8%E8%8D%90/" title="网站推荐">网站推荐</a><div class="article-meta-wrap"><span class="post-meta-date"><i class="far fa-calendar-alt"></i><span class="article-meta-label">发表于</span><time datetime="2024-07-07T13:11:28.000Z" title="发表于 2024-07-07 21:11:28">2024-07-07</time></span></div><div class="content">最近冲浪时，发现了许多宝藏的网站。这些有的有趣，有的具有实用价值。让我们一起来看看吧(⁎⁍̴̛ᴗ⁍̴̛⁎)
 
 舉牌加油小人產生器
 
-网址：UPUP 举牌加油小人产生器 - Haniboi (dadaewqq.github.io)
+网址：UPUP
+举牌加油小人产生器 - Haniboi (dadaewqq.github.io)
 
 举牌小人是由台湾插画家李翰旗下的翰你设计，与啧室股份有限公司旗下的集资平台“啧啧”，于2013年联名推出的网页应用程序，将用户想要表达的消息，以举牌文字数组的方式形成图片，由于支持多国语言，加上文字可随用户任意变化的缘故，因此引发网络爆红效应。——维基百科
 
 网站初始界面：
 
+
+网站1界面.png
+
 直接在输入框中输入即可，支持中英双语哦(⌒ω⌒)
 效果展示：
 
 
+举牌小人：人生万事须自为
+跬步江山即寥廓.png
+
+
 YASAI的设计工具
 
-网址：设计工具 (wangyasai.github.io)
-
-亚塞是一名数据可视化设计师（引自亚塞的个人网站：Yasai (wangyasai.github.io)），这个大佬用P5.js做了许多哇塞的设计小工具，都集合在该网址中，随便拎出来一个，都十分好看，可以用在PPT中，满满的高级感。
-更赞的是这些工具右上角都可调参数，简直不要完美•̀.̫•́✧
-右键即可下载
-如下是一些效果图（真是视觉盛宴 ...</div></div></div><div class="recent-post-item"><div class="recent-post-info no-cover"><a class="article-title" href="/2024/07/03/Dandelion-Wine%E6%91%98%E6%8A%84/" title="Dandelion_Wine摘抄">Dandelion_Wine摘抄</a><div class="article-meta-wrap"><span class="post-meta-date"><i class="far fa-calendar-alt"></i><span class="article-meta-label">发表于</span><time datetime="2024-07-03T13:34:46.000Z" title="发表于 2024-07-03 21:34:46">2024-07-03</time></span><span class="article-meta"><span class="article-meta-separator">|</span><i class="fas fa-inbox"></i><a class="article-meta__categories" href="/categories/%E6%91%98%E6%8A%84/">摘抄</a></span></div><div class="content">
-Trains and boxcars and the smell of coal and fire are not ugly to children. Ugliness is a concept that we happen on later and become self-conscious about. 
+网址：设计工具
+(wangyasai.github.io)
 
 
-In other words, if your boy is a poet, horse manure can only mean flowers to him; which is, of course, what horse manure has always been about. 
+网站2界面.jpeg
+
+亚塞是一名数据可视化设计师（引自亚塞的个人网站：Yasai
+(wangyasai.github.io)），这个大佬用P5.js做了许多哇塞的设计小工具，都集合在该网址中，随 ...</div></div></div><div class="recent-post-item"><div class="recent-post-info no-cover"><a class="article-title" href="/2024/07/03/Dandelion-Wine%E6%91%98%E6%8A%84/" title="Dandelion_Wine摘抄">Dandelion_Wine摘抄</a><div class="article-meta-wrap"><span class="post-meta-date"><i class="far fa-calendar-alt"></i><span class="article-meta-label">发表于</span><time datetime="2024-07-03T13:34:46.000Z" title="发表于 2024-07-03 21:34:46">2024-07-03</time></span><span class="article-meta"><span class="article-meta-separator">|</span><i class="fas fa-inbox"></i><a class="article-meta__categories" href="/categories/%E6%91%98%E6%8A%84/">摘抄</a></span></div><div class="content">
+Trains and boxcars and the smell of coal and fire are not ugly to
+children. Ugliness is a concept that we happen on later and become
+self-conscious about.
 
 
-No one said anything. We all just looked up at the sky and we breathed out and in and we all thought the same things, but nobody said. Someone finally had to say, though, didn’t they? And that o ...</div></div></div><div class="recent-post-item"><div class="recent-post-info no-cover"><a class="article-title" href="/2024/07/01/%E6%A0%91%E8%8E%93%E6%B4%BE%E5%AD%A6%E4%B9%A0%E4%B9%8B%E6%97%85%EF%BC%9A%E5%8F%8D%E5%BA%94%E5%8A%9B%E5%B0%8F%E6%B8%B8%E6%88%8F/" title="树莓派学习之旅：反应力小游戏">树莓派学习之旅：反应力小游戏</a><div class="article-meta-wrap"><span class="post-meta-date"><i class="far fa-calendar-alt"></i><span class="article-meta-label">发表于</span><time datetime="2024-07-01T12:56:07.000Z" title="发表于 2024-07-01 20:56:07">2024-07-01</time></span><span class="article-meta"><span class="article-meta-separator">|</span><i class="fas fa-inbox"></i><a class="article-meta__categories" href="/categories/%E6%A0%91%E8%8E%93%E6%B4%BE%E5%AD%A6%E4%B9%A0%E4%B9%8B%E6%97%85/">树莓派学习之旅</a></span></div><div class="content">
-学习资料来自Get started with MicroPython  on Raspberry Pi Pico
+In other words, if your boy is a poet, horse manure can only mean
+flowers to him; which is, of course, what horse manure has always been
+about.
+
+
+No one said anything. We all just looked up at the sky and we
+breathed out and in and we all thought the same things, but nobody said.
+Someone finally had to say, though, didn't they? ...</div></div></div><div class="recent-post-item"><div class="recent-post-info no-cover"><a class="article-title" href="/2024/07/01/%E6%A0%91%E8%8E%93%E6%B4%BE%E5%AD%A6%E4%B9%A0%E4%B9%8B%E6%97%85%EF%BC%9A%E5%8F%8D%E5%BA%94%E5%8A%9B%E5%B0%8F%E6%B8%B8%E6%88%8F/" title="树莓派学习之旅：反应力小游戏">树莓派学习之旅：反应力小游戏</a><div class="article-meta-wrap"><span class="post-meta-date"><i class="far fa-calendar-alt"></i><span class="article-meta-label">发表于</span><time datetime="2024-07-01T12:56:07.000Z" title="发表于 2024-07-01 20:56:07">2024-07-01</time></span><span class="article-meta"><span class="article-meta-separator">|</span><i class="fas fa-inbox"></i><a class="article-meta__categories" href="/categories/%E6%A0%91%E8%8E%93%E6%B4%BE%E5%AD%A6%E4%B9%A0%E4%B9%8B%E6%97%85/">树莓派学习之旅</a></span></div><div class="content">
+学习资料来自Get started with MicroPython on Raspberry Pi
+Pico
 
 微控制器可不只存在于工业设备中，他们存在于身边很多物品中，包括玩具和游戏。
 人类的平均反应速度约为200毫秒~250毫秒，本项目我们将设计一个测试反应力的、可供单人或双人的小游戏。
 所需材料
+
 树莓派Pico
 一块面包板
 一个任意颜色的LED
@@ -300,17 +348,24 @@ No one said anything. We all just looked up at the sky and we breathed out and i
 两个按钮
 公对公跳线若干
 
-单人游戏电路连接
-代码实现拆解分析首先导入库
-123import machineimport utimeimport urandom  # 处理随机数
+单人游戏
+电路连接
 
+
+单人反应力小游戏.png
+
+代码实现
+拆解分析
+首先导入库
+123import machineimport utimeimport urandom  # 处理随机数
 接着，将变量pressed设为False，然后将GP15设为LED，GP14设为按钮。
 123pressed = Falseled = machine.Pin(15, machine.Pin.OUT)button = machine.Pin(14, machine.Pin.IN, machine.Pin.PULL_DOWN)
-
-之前我们已经处理过按钮了，但这次有些不同，我们将采用一种不同的更加灵活的方式：打断请求（interrupt  ...</div></div></div><div class="recent-post-item"><div class="recent-post-info no-cover"><a class="article-title" href="/2024/06/29/%E6%A0%91%E8%8E%93%E6%B4%BE%E5%AD%A6%E4%B9%A0%E4%B9%8B%E6%97%85%EF%BC%9A%E4%BA%A4%E9%80%9A%E4%BF%A1%E5%8F%B7%E7%81%AF/" title="树莓派学习之旅：交通信号灯">树莓派学习之旅：交通信号灯</a><div class="article-meta-wrap"><span class="post-meta-date"><i class="far fa-calendar-alt"></i><span class="article-meta-label">发表于</span><time datetime="2024-06-29T09:53:49.000Z" title="发表于 2024-06-29 17:53:49">2024-06-29</time></span><span class="article-meta"><span class="article-meta-separator">|</span><i class="fas fa-inbox"></i><a class="article-meta__categories" href="/categories/%E6%A0%91%E8%8E%93%E6%B4%BE%E5%AD%A6%E4%B9%A0%E4%B9%8B%E6%97%85/">树莓派学习之旅</a></span></div><div class="content">
-学习资料来自Get started with MicroPython  on Raspberry Pi Pico
+之前我们已经处理过按 ...</div></div></div><div class="recent-post-item"><div class="recent-post-info no-cover"><a class="article-title" href="/2024/06/29/%E6%A0%91%E8%8E%93%E6%B4%BE%E5%AD%A6%E4%B9%A0%E4%B9%8B%E6%97%85%EF%BC%9A%E4%BA%A4%E9%80%9A%E4%BF%A1%E5%8F%B7%E7%81%AF/" title="树莓派学习之旅：交通信号灯">树莓派学习之旅：交通信号灯</a><div class="article-meta-wrap"><span class="post-meta-date"><i class="far fa-calendar-alt"></i><span class="article-meta-label">发表于</span><time datetime="2024-06-29T09:53:49.000Z" title="发表于 2024-06-29 17:53:49">2024-06-29</time></span><span class="article-meta"><span class="article-meta-separator">|</span><i class="fas fa-inbox"></i><a class="article-meta__categories" href="/categories/%E6%A0%91%E8%8E%93%E6%B4%BE%E5%AD%A6%E4%B9%A0%E4%B9%8B%E6%97%85/">树莓派学习之旅</a></span></div><div class="content">
+学习资料来自Get started with MicroPython on Raspberry Pi
+Pico
 
 所需材料
+
 树莓派Pico
 一块面包板
 一个绿色LED，一个黄色（或琥珀色）LED，一个红色LED
@@ -318,21 +373,26 @@ No one said anything. We all just looked up at the sky and we breathed out and i
 一个压电式蜂鸣器
 公对公跳线若干
 
-简单信号灯连接电路与之前一样，使LED跨国中心缝，并组装电阻，如下图所示：
+简单信号灯
+连接电路
+与之前一样，使LED跨国中心缝，并组装电阻，如下图所示：
+
+
+dda62e9702c2b229aae4e3621be57f5e.png
 
 实物图（效果图）：
 
 
+dcb6460e444fe40b40d9529867c7c74e.jpg
+
+
 一定要牢记LED需要一个限流的电阻。如果忘了连接电阻，最好的结果是LED烧坏并停止工作，最坏的结果是Pico损坏。
 
-代码实现首先，还是导入所需模块
+代码实现
+首先，还是导入所需模块
 12import machineimport utime
-
 定义每一个LED
-123led_red = machine.Pin(15, machine.Pin.OUT)led_amber = machine.Pin(14, machine.Pin.OUT)led_green = machine.Pin(13, machine.Pin.OUT)
-
-真正的信号灯不会停掉，所以要实现无限循环。
-12345678910111213while True:    led_red.va ...</div></div></div><nav id="pagination"><div class="pagination"><a class="extend prev" rel="prev" href="/page/3/#content-inner"><i class="fas fa-chevron-left fa-fw"></i></a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/3/#content-inner">3</a><span class="page-number current">4</span><a class="page-number" href="/page/5/#content-inner">5</a><a class="page-number" href="/page/6/#content-inner">6</a><a class="extend next" rel="next" href="/page/5/#content-inner"><i class="fas fa-chevron-right fa-fw"></i></a></div></nav></div><div class="aside-content" id="aside-content"><div class="card-widget card-info"><div class="is-center"><div class="avatar-img"><img src="https://vip.helloimg.com/i/2024/07/26/66a3a2cb7c059.png" onerror="this.onerror=null;this.src='/img/friend_404.gif'" alt="avatar"/></div><div class="author-info__name">Wei Lai</div><div class="author-info__description"></div></div><div class="card-info-data site-data is-center"><a href="/archives/"><div class="headline">文章</div><div class="length-num">53</div></a><a href="/tags/"><div class="headline">标签</div><div class="length-num">10</div></a><a href="/categories/"><div class="headline">分类</div><div class="length-num">12</div></a></div><a id="card-info-btn" target="_blank" rel="noopener" href="https://github.com/xxxxxx"><i class="fab fa-github"></i><span>Follow Me</span></a></div><div class="card-widget card-announcement"><div class="item-headline"><i class="fas fa-bullhorn fa-shake"></i><span>公告</span></div><div class="announcement_content">This is my Blog</div></div><div class="sticky_layout"><div class="card-widget card-recent-post"><div class="item-headline"><i class="fas fa-history"></i><span>最新文章</span></div><div class="aside-list"><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/2025/01/20/OpenCV%E5%AD%A6%E4%B9%A0%E4%B9%8B%E6%97%85%EF%BC%9A%E5%9B%BE%E5%83%8F%E7%9A%84%E8%89%B2%E5%BD%A9%E7%A9%BA%E9%97%B4%E8%BD%AC%E6%8D%A2/" title="OpenCV学习之旅：图像的色彩空间转换">OpenCV学习之旅：图像的色彩空间转换</a><time datetime="2025-01-20T03:59:16.000Z" title="发表于 2025-01-20 11:59:16">2025-01-20</time></div></div><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/2025/01/19/OpenCV%E5%AD%A6%E4%B9%A0%E4%B9%8B%E6%97%85%EF%BC%9A%E5%9B%BE%E5%83%8F%E8%BF%90%E7%AE%97/" title="OpenCV学习之旅：图像运算">OpenCV学习之旅：图像运算</a><time datetime="2025-01-19T12:18:24.000Z" title="发表于 2025-01-19 20:18:24">2025-01-19</time></div></div><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/2025/01/19/%E6%8C%82%E6%8B%86%E6%8E%A5%E5%9C%B0%E7%BA%BF%E9%A1%B9%E7%9B%AE%E5%AD%A6%E4%B9%A0%E7%A0%94%E7%A9%B6%EF%BC%9APCB%E8%AE%BE%E8%AE%A1%E6%A6%82%E8%BF%B0/" title="挂拆接地线项目学习研究：PCB设计概述">挂拆接地线项目学习研究：PCB设计概述</a><time datetime="2025-01-19T07:12:12.000Z" title="发表于 2025-01-19 15:12:12">2025-01-19</time></div></div><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/2025/01/18/%E6%8C%82%E6%8B%86%E6%8E%A5%E5%9C%B0%E7%BA%BF%E9%A1%B9%E7%9B%AE%E5%AD%A6%E4%B9%A0%E7%A0%94%E7%A9%B6%EF%BC%9A%E5%85%83%E5%99%A8%E4%BB%B6%E7%9A%84%E4%BD%BF%E7%94%A8/" title="挂拆接地线项目学习研究：元器件的使用">挂拆接地线项目学习研究：元器件的使用</a><time datetime="2025-01-18T12:35:36.000Z" title="发表于 2025-01-18 20:35:36">2025-01-18</time></div></div><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/2025/01/17/ROS%E5%85%A5%E9%97%A8%E4%B9%8B%E6%97%85%EF%BC%9A%E5%8A%A8%E4%BD%9C%EF%BC%88action%EF%BC%89/" title="ROS入门之旅：动作（action）">ROS入门之旅：动作（action）</a><time datetime="2025-01-17T04:06:34.000Z" title="发表于 2025-01-17 12:06:34">2025-01-17</time></div></div></div></div><div class="card-widget card-categories"><div class="item-headline">
+123led_red = machine.Pin(15, machine.Pin.OUT)led_amber = machine.Pin(14, machine.Pin.OU ...</div></div></div><nav id="pagination"><div class="pagination"><a class="extend prev" rel="prev" href="/page/3/#content-inner"><i class="fas fa-chevron-left fa-fw"></i></a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/3/#content-inner">3</a><span class="page-number current">4</span><a class="page-number" href="/page/5/#content-inner">5</a><a class="page-number" href="/page/6/#content-inner">6</a><a class="extend next" rel="next" href="/page/5/#content-inner"><i class="fas fa-chevron-right fa-fw"></i></a></div></nav></div><div class="aside-content" id="aside-content"><div class="card-widget card-info"><div class="is-center"><div class="avatar-img"><img src="https://vip.helloimg.com/i/2024/07/26/66a3a2cb7c059.png" onerror="this.onerror=null;this.src='/img/friend_404.gif'" alt="avatar"/></div><div class="author-info__name">Wei Lai</div><div class="author-info__description"></div></div><div class="card-info-data site-data is-center"><a href="/archives/"><div class="headline">文章</div><div class="length-num">53</div></a><a href="/tags/"><div class="headline">标签</div><div class="length-num">10</div></a><a href="/categories/"><div class="headline">分类</div><div class="length-num">12</div></a></div><a id="card-info-btn" target="_blank" rel="noopener" href="https://github.com/xxxxxx"><i class="fab fa-github"></i><span>Follow Me</span></a></div><div class="card-widget card-announcement"><div class="item-headline"><i class="fas fa-bullhorn fa-shake"></i><span>公告</span></div><div class="announcement_content">This is my Blog</div></div><div class="sticky_layout"><div class="card-widget card-recent-post"><div class="item-headline"><i class="fas fa-history"></i><span>最新文章</span></div><div class="aside-list"><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/2025/01/20/OpenCV%E5%AD%A6%E4%B9%A0%E4%B9%8B%E6%97%85%EF%BC%9A%E5%9B%BE%E5%83%8F%E7%9A%84%E8%89%B2%E5%BD%A9%E7%A9%BA%E9%97%B4%E8%BD%AC%E6%8D%A2/" title="OpenCV学习之旅：图像的色彩空间转换">OpenCV学习之旅：图像的色彩空间转换</a><time datetime="2025-01-20T03:59:16.000Z" title="发表于 2025-01-20 11:59:16">2025-01-20</time></div></div><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/2025/01/19/OpenCV%E5%AD%A6%E4%B9%A0%E4%B9%8B%E6%97%85%EF%BC%9A%E5%9B%BE%E5%83%8F%E8%BF%90%E7%AE%97/" title="OpenCV学习之旅：图像运算">OpenCV学习之旅：图像运算</a><time datetime="2025-01-19T12:18:24.000Z" title="发表于 2025-01-19 20:18:24">2025-01-19</time></div></div><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/2025/01/19/%E6%8C%82%E6%8B%86%E6%8E%A5%E5%9C%B0%E7%BA%BF%E9%A1%B9%E7%9B%AE%E5%AD%A6%E4%B9%A0%E7%A0%94%E7%A9%B6%EF%BC%9APCB%E8%AE%BE%E8%AE%A1%E6%A6%82%E8%BF%B0/" title="挂拆接地线项目学习研究：PCB设计概述">挂拆接地线项目学习研究：PCB设计概述</a><time datetime="2025-01-19T07:12:12.000Z" title="发表于 2025-01-19 15:12:12">2025-01-19</time></div></div><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/2025/01/18/%E6%8C%82%E6%8B%86%E6%8E%A5%E5%9C%B0%E7%BA%BF%E9%A1%B9%E7%9B%AE%E5%AD%A6%E4%B9%A0%E7%A0%94%E7%A9%B6%EF%BC%9A%E5%85%83%E5%99%A8%E4%BB%B6%E7%9A%84%E4%BD%BF%E7%94%A8/" title="挂拆接地线项目学习研究：元器件的使用">挂拆接地线项目学习研究：元器件的使用</a><time datetime="2025-01-18T12:35:36.000Z" title="发表于 2025-01-18 20:35:36">2025-01-18</time></div></div><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/2025/01/17/ROS%E5%85%A5%E9%97%A8%E4%B9%8B%E6%97%85%EF%BC%9A%E5%8A%A8%E4%BD%9C%EF%BC%88action%EF%BC%89/" title="ROS入门之旅：动作（action）">ROS入门之旅：动作（action）</a><time datetime="2025-01-17T04:06:34.000Z" title="发表于 2025-01-17 12:06:34">2025-01-17</time></div></div></div></div><div class="card-widget card-categories"><div class="item-headline">
             <i class="fas fa-folder-open"></i>
             <span>分类</span>
             <a class="card-more-btn" href="/categories/" title="查看更多">
@@ -340,7 +400,7 @@ No one said anything. We all just looked up at the sky and we breathed out and i
             </div>
             <ul class="card-category-list" id="aside-cat-list">
             <li class="card-category-list-item "><a class="card-category-list-link" href="/categories/Linux%E5%91%BD%E4%BB%A4%E8%A1%8C%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/"><span class="card-category-list-name">Linux命令行学习笔记</span><span class="card-category-list-count">3</span></a></li><li class="card-category-list-item "><a class="card-category-list-link" href="/categories/OpenCV%E5%AD%A6%E4%B9%A0%E4%B9%8B%E6%97%85/"><span class="card-category-list-name">OpenCV学习之旅</span><span class="card-category-list-count">3</span></a></li><li class="card-category-list-item "><a class="card-category-list-link" href="/categories/ROS%E5%85%A5%E9%97%A8%E4%B9%8B%E6%97%85/"><span class="card-category-list-name">ROS入门之旅</span><span class="card-category-list-count">4</span></a></li><li class="card-category-list-item "><a class="card-category-list-link" href="/categories/STM32%E5%85%A5%E9%97%A8%E4%B9%8B%E6%97%85/"><span class="card-category-list-name">STM32入门之旅</span><span class="card-category-list-count">2</span></a></li><li class="card-category-list-item "><a class="card-category-list-link" href="/categories/seaborn/"><span class="card-category-list-name">seaborn</span><span class="card-category-list-count">1</span></a></li><li class="card-category-list-item "><a class="card-category-list-link" href="/categories/%E5%8D%95%E8%AF%8D%E8%A1%A8/"><span class="card-category-list-name">单词表</span><span class="card-category-list-count">4</span></a></li><li class="card-category-list-item "><a class="card-category-list-link" href="/categories/%E6%91%98%E6%8A%84/"><span class="card-category-list-name">摘抄</span><span class="card-category-list-count">4</span></a></li><li class="card-category-list-item "><a class="card-category-list-link" href="/categories/%E6%96%B0%E8%A5%BF%E5%85%B0%E4%B9%8B%E8%A1%8C/"><span class="card-category-list-name">新西兰之行</span><span class="card-category-list-count">7</span></a></li>
-            </ul></div><div class="card-widget card-tags"><div class="item-headline"><i class="fas fa-tags"></i><span>标签</span></div><div class="card-tag-cloud"><a href="/tags/%E6%97%85%E8%A1%8C/" style="font-size: 1.5em; color: #99a9bf">旅行</a> <a href="/tags/OpenCV/" style="font-size: 1.23em; color: #999ea6">OpenCV</a> <a href="/tags/%E5%B0%8F%E9%A1%B9%E7%9B%AE/" style="font-size: 1.17em; color: #999c9f">小项目</a> <a href="/tags/%E4%BA%92%E8%81%94%E7%BD%91/" style="font-size: 1.1em; color: #999">互联网</a> <a href="/tags/Linux/" style="font-size: 1.23em; color: #999ea6">Linux</a> <a href="/tags/ROS/" style="font-size: 1.3em; color: #99a1ac">ROS</a> <a href="/tags/%E5%AD%A6%E4%B9%A0/" style="font-size: 1.37em; color: #99a4b2">学习</a> <a href="/tags/%E6%A0%91%E8%8E%93%E6%B4%BE/" style="font-size: 1.43em; color: #99a6b9">树莓派</a> <a href="/tags/%E9%A1%B9%E7%9B%AE%E5%AD%A6%E4%B9%A0%E7%A0%94%E7%A9%B6/" style="font-size: 1.17em; color: #999c9f">项目学习研究</a> <a href="/tags/%E5%B5%8C%E5%85%A5%E5%BC%8F%E5%BC%80%E5%8F%91/" style="font-size: 1.17em; color: #999c9f">嵌入式开发</a></div></div><div class="card-widget card-archives"><div class="item-headline"><i class="fas fa-archive"></i><span>归档</span></div><ul class="card-archive-list"><li class="card-archive-list-item"><a class="card-archive-list-link" href="/archives/2025/01/"><span class="card-archive-list-date">一月 2025</span><span class="card-archive-list-count">11</span></a></li><li class="card-archive-list-item"><a class="card-archive-list-link" href="/archives/2024/10/"><span class="card-archive-list-date">十月 2024</span><span class="card-archive-list-count">2</span></a></li><li class="card-archive-list-item"><a class="card-archive-list-link" href="/archives/2024/09/"><span class="card-archive-list-date">九月 2024</span><span class="card-archive-list-count">2</span></a></li><li class="card-archive-list-item"><a class="card-archive-list-link" href="/archives/2024/08/"><span class="card-archive-list-date">八月 2024</span><span class="card-archive-list-count">10</span></a></li><li class="card-archive-list-item"><a class="card-archive-list-link" href="/archives/2024/07/"><span class="card-archive-list-date">七月 2024</span><span class="card-archive-list-count">14</span></a></li><li class="card-archive-list-item"><a class="card-archive-list-link" href="/archives/2024/06/"><span class="card-archive-list-date">六月 2024</span><span class="card-archive-list-count">14</span></a></li></ul></div><div class="card-widget card-webinfo"><div class="item-headline"><i class="fas fa-chart-line"></i><span>网站资讯</span></div><div class="webinfo"><div class="webinfo-item"><div class="item-name">文章数目 :</div><div class="item-count">53</div></div><div class="webinfo-item"><div class="item-name">已运行时间 :</div><div class="item-count" id="runtimeshow" data-publishDate="2024-06-10T16:00:00.000Z"><i class="fa-solid fa-spinner fa-spin"></i></div></div><div class="webinfo-item"><div class="item-name">本站访客数 :</div><div class="item-count" id="busuanzi_value_site_uv"><i class="fa-solid fa-spinner fa-spin"></i></div></div><div class="webinfo-item"><div class="item-name">本站总访问量 :</div><div class="item-count" id="busuanzi_value_site_pv"><i class="fa-solid fa-spinner fa-spin"></i></div></div><div class="webinfo-item"><div class="item-name">最后更新时间 :</div><div class="item-count" id="last-push-date" data-lastPushDate="2025-01-20T04:00:28.594Z"><i class="fa-solid fa-spinner fa-spin"></i></div></div></div></div></div></div></main><footer id="footer"><div id="footer-wrap"><div class="copyright">&copy;2024 - 2025 By Wei Lai</div><div class="framework-info"><span>框架 </span><a target="_blank" rel="noopener" href="https://hexo.io">Hexo</a><span class="footer-separator">|</span><span>主题 </span><a target="_blank" rel="noopener" href="https://github.com/jerryc127/hexo-theme-butterfly">Butterfly</a></div></div></footer></div><div id="rightside"><div id="rightside-config-hide"><button id="darkmode" type="button" title="浅色和深色模式转换"><i class="fas fa-adjust"></i></button><button id="hide-aside-btn" type="button" title="单栏和双栏切换"><i class="fas fa-arrows-alt-h"></i></button></div><div id="rightside-config-show"><button id="rightside-config" type="button" title="设置"><i class="fas fa-cog fa-spin"></i></button><button id="go-up" type="button" title="回到顶部"><span class="scroll-percent"></span><i class="fas fa-arrow-up"></i></button></div></div><div><script src="/js/utils.js?v=4.14.0-b3"></script><script src="/js/main.js?v=4.14.0-b3"></script><script src="https://cdn.jsdelivr.net/npm/@fancyapps/ui@5.0.35/dist/fancybox/fancybox.umd.min.js"></script><div class="js-pjax"><script>(() => {
+            </ul></div><div class="card-widget card-tags"><div class="item-headline"><i class="fas fa-tags"></i><span>标签</span></div><div class="card-tag-cloud"><a href="/tags/%E9%A1%B9%E7%9B%AE%E5%AD%A6%E4%B9%A0%E7%A0%94%E7%A9%B6/" style="font-size: 1.17em; color: #999c9f">项目学习研究</a> <a href="/tags/%E5%B0%8F%E9%A1%B9%E7%9B%AE/" style="font-size: 1.17em; color: #999c9f">小项目</a> <a href="/tags/%E4%BA%92%E8%81%94%E7%BD%91/" style="font-size: 1.1em; color: #999">互联网</a> <a href="/tags/ROS/" style="font-size: 1.3em; color: #99a1ac">ROS</a> <a href="/tags/%E6%97%85%E8%A1%8C/" style="font-size: 1.5em; color: #99a9bf">旅行</a> <a href="/tags/%E5%AD%A6%E4%B9%A0/" style="font-size: 1.37em; color: #99a4b2">学习</a> <a href="/tags/%E5%B5%8C%E5%85%A5%E5%BC%8F%E5%BC%80%E5%8F%91/" style="font-size: 1.17em; color: #999c9f">嵌入式开发</a> <a href="/tags/%E6%A0%91%E8%8E%93%E6%B4%BE/" style="font-size: 1.43em; color: #99a6b9">树莓派</a> <a href="/tags/Linux/" style="font-size: 1.23em; color: #999ea6">Linux</a> <a href="/tags/OpenCV/" style="font-size: 1.23em; color: #999ea6">OpenCV</a></div></div><div class="card-widget card-archives"><div class="item-headline"><i class="fas fa-archive"></i><span>归档</span></div><ul class="card-archive-list"><li class="card-archive-list-item"><a class="card-archive-list-link" href="/archives/2025/01/"><span class="card-archive-list-date">一月 2025</span><span class="card-archive-list-count">11</span></a></li><li class="card-archive-list-item"><a class="card-archive-list-link" href="/archives/2024/10/"><span class="card-archive-list-date">十月 2024</span><span class="card-archive-list-count">2</span></a></li><li class="card-archive-list-item"><a class="card-archive-list-link" href="/archives/2024/09/"><span class="card-archive-list-date">九月 2024</span><span class="card-archive-list-count">2</span></a></li><li class="card-archive-list-item"><a class="card-archive-list-link" href="/archives/2024/08/"><span class="card-archive-list-date">八月 2024</span><span class="card-archive-list-count">10</span></a></li><li class="card-archive-list-item"><a class="card-archive-list-link" href="/archives/2024/07/"><span class="card-archive-list-date">七月 2024</span><span class="card-archive-list-count">14</span></a></li><li class="card-archive-list-item"><a class="card-archive-list-link" href="/archives/2024/06/"><span class="card-archive-list-date">六月 2024</span><span class="card-archive-list-count">14</span></a></li></ul></div><div class="card-widget card-webinfo"><div class="item-headline"><i class="fas fa-chart-line"></i><span>网站资讯</span></div><div class="webinfo"><div class="webinfo-item"><div class="item-name">文章数目 :</div><div class="item-count">53</div></div><div class="webinfo-item"><div class="item-name">已运行时间 :</div><div class="item-count" id="runtimeshow" data-publishDate="2024-06-10T16:00:00.000Z"><i class="fa-solid fa-spinner fa-spin"></i></div></div><div class="webinfo-item"><div class="item-name">本站访客数 :</div><div class="item-count" id="busuanzi_value_site_uv"><i class="fa-solid fa-spinner fa-spin"></i></div></div><div class="webinfo-item"><div class="item-name">本站总访问量 :</div><div class="item-count" id="busuanzi_value_site_pv"><i class="fa-solid fa-spinner fa-spin"></i></div></div><div class="webinfo-item"><div class="item-name">最后更新时间 :</div><div class="item-count" id="last-push-date" data-lastPushDate="2025-01-21T08:28:55.130Z"><i class="fa-solid fa-spinner fa-spin"></i></div></div></div></div></div></div></main><footer id="footer"><div id="footer-wrap"><div class="copyright">&copy;2024 - 2025 By Wei Lai</div><div class="framework-info"><span>框架 </span><a target="_blank" rel="noopener" href="https://hexo.io">Hexo</a><span class="footer-separator">|</span><span>主题 </span><a target="_blank" rel="noopener" href="https://github.com/jerryc127/hexo-theme-butterfly">Butterfly</a></div></div></footer></div><div id="rightside"><div id="rightside-config-hide"><button id="darkmode" type="button" title="浅色和深色模式转换"><i class="fas fa-adjust"></i></button><button id="hide-aside-btn" type="button" title="单栏和双栏切换"><i class="fas fa-arrows-alt-h"></i></button></div><div id="rightside-config-show"><button id="rightside-config" type="button" title="设置"><i class="fas fa-cog fa-spin"></i></button><button id="go-up" type="button" title="回到顶部"><span class="scroll-percent"></span><i class="fas fa-arrow-up"></i></button></div></div><div><script src="/js/utils.js?v=4.14.0-b3"></script><script src="/js/main.js?v=4.14.0-b3"></script><script src="https://cdn.jsdelivr.net/npm/@fancyapps/ui@5.0.35/dist/fancybox/fancybox.umd.min.js"></script><div class="js-pjax"><script>(() => {
   const runMermaid = (ele) => {
     window.loadMermaid = true
     const theme = document.documentElement.getAttribute('data-theme') === 'dark' ? 'dark' : 'default'
